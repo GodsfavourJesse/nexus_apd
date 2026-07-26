@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
@@ -75,7 +76,9 @@ export default function RegisterPage() {
                         shadow-sm
                     "
                 >
-                    <RegisterForm />
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <RegisterForm />
+                    </Suspense>
                 </div>
             </section>
         </main>
