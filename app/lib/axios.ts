@@ -115,7 +115,6 @@ axiosInstance.interceptors.response.use(
 
                 // Update Zustand
                 auth.login(
-                    auth.user,
                     accessToken,
                     refreshToken,
                 );
