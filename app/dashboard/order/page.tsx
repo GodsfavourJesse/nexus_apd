@@ -1,3 +1,5 @@
+"use client";
+
 import OrderHeader from "@/app/components/order/OrderHeader";
 import OrderStatsCard from "@/app/components/order/OrderStatsCard";
 import ProductGrid from "@/app/components/order/ProductGrid";
