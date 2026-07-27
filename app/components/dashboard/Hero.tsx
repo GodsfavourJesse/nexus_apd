@@ -14,7 +14,7 @@ export default function Hero({ name = "Internship Member" }: HeroProps) {
             <div
                 className="
                     absolute inset-0
-                    bg-[url('/images/background_2.jpg')]
+                    bg-[url('/images/background_3.jpg')]
                     bg-cover
                     bg-center
                 "

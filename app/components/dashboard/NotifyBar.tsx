@@ -14,7 +14,7 @@ export default function NotifyBar({
                 className="h-full w-full relative flex-1 overflow-hidden bg-[#FFFAED] rounded-[8px] flex items-center justify-center"
             >
 
-                <div className="absolute z-10 -left-0 flex h-full shrink-0 items-center gap-0.5 rounded-l-[8px] rounded-br-[30px] bg-gradient-to-r from-[#FFB139] to-[#FF9A1F] px-4">
+                <div className="absolute z-10 -left-0 flex h-full shrink-0 items-center gap-0.5 rounded-l-[8px] rounded-br-[30px] bg-[#1491FF] px-4">
                     <span className="text-sm font-semibold text-white">
                         Notify
                     </span>
@@ -32,7 +32,7 @@ export default function NotifyBar({
                             "linear-gradient(to right, #FFF 10%, transparent 100%)",
                     }}
                 />
-                <div className="marquee-track flex w-max items-center whitespace-nowrap text-sm font-medium text-[#FFAF33]">
+                <div className="marquee-track flex w-max items-center whitespace-nowrap text-sm font-medium text-[#2DC8FF]">
                     <span className="px-6">{message}</span>
                     <span className="px-6" aria-hidden="true">
                         {message}

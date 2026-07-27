@@ -22,10 +22,10 @@ export default function MenuGridItem({
             <div
                 className="
                     flex h-16 w-16 items-center justify-center
-                    rounded-2xl bg-[#FFF3D9]
+                    rounded-2xl bg-[#E8F3FF]
                     p-3
                     transition
-                    group-hover:bg-[#FFE9B8]
+                    group-hover:bg-[#D6EAFF]
                     group-active:scale-95
                 "
             >

@@ -10,7 +10,7 @@ export default function NairaBadge({ size = 96 }: NairaBadgeProps) {
         >
             {/* Handles */}
             <div
-                className="absolute top-0 left-[22%] rounded-full bg-[#FFB139]"
+                className="absolute top-0 left-[22%] rounded-full bg-[#189EFE]"
                 style={{
                     width: size * 0.22,
                     height: size * 0.3,
@@ -18,7 +18,7 @@ export default function NairaBadge({ size = 96 }: NairaBadgeProps) {
                 }}
             />
             <div
-                className="absolute top-0 right-[22%] rounded-full bg-[#FFB139]"
+                className="absolute top-0 right-[22%] rounded-full bg-[#189EFE]"
                 style={{
                     width: size * 0.22,
                     height: size * 0.3,
@@ -28,7 +28,7 @@ export default function NairaBadge({ size = 96 }: NairaBadgeProps) {
 
             {/* Body */}
             <div
-                className="absolute inset-0 rounded-[28%] bg-gradient-to-b from-[#FFC24D] to-[#FFA733] shadow-sm"
+                className="absolute inset-0 rounded-[28%] bg-[#189EFE] shadow-sm"
             />
 
             {/* Coin */}
@@ -37,7 +37,7 @@ export default function NairaBadge({ size = 96 }: NairaBadgeProps) {
                 style={{ width: size * 0.62, height: size * 0.62 }}
             >
                 <span
-                    className="font-extrabold text-[#FFA733]"
+                    className="font-extrabold text-[#189EFE]"
                     style={{ fontSize: size * 0.32, lineHeight: 1 }}
                 >
                     ₦

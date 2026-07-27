@@ -42,10 +42,10 @@ export default function PromotedNotice({
     }, [isWrapping]);
 
     return (
-        <div className="flex h-16 items-center gap-3 rounded-2xl bg-[#FFF3D9] px-5">
+        <div className="flex h-16 items-center gap-3 rounded-2xl bg-[#E8F3FF] px-5">
             <Volume2
                 size={22}
-                className="shrink-0 text-[#FFAF33]"
+                className="shrink-0 text-[#2B84E0]"
                 strokeWidth={1.8}
             />
 
@@ -62,7 +62,7 @@ export default function PromotedNotice({
                     {messages.map((message, i) => (
                         <span
                             key={i}
-                            className="flex h-6 items-center truncate font-serif text-[15px] text-[#FFAF33]"
+                            className="flex h-6 items-center truncate font-serif text-[15px] text-[#2B84E0]"
                         >
                             {message}
                         </span>
@@ -70,7 +70,7 @@ export default function PromotedNotice({
 
                     {/* Duplicate of the first message for a seamless wrap */}
                     <span
-                        className="flex h-6 items-center truncate font-serif text-[15px] text-[#FFAF33]"
+                        className="flex h-6 items-center truncate font-serif text-[15px] text-[#2B84E0]"
                         aria-hidden="true"
                     >
                         {messages[0]}
