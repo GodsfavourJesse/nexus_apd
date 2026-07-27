@@ -50,6 +50,7 @@ export default function AdminDashboardPage() {
                     upgrades={
                         dashboard?.pendingUpgradeRequests
                     }
+                    withdrawals={dashboard?.pendingWithdrawals}
                 />
 
                 <DashboardRevenueChart 

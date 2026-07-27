@@ -60,8 +60,8 @@ export default function AboutCompany() {
                         font-medium
                         text-slate-700
                         transition-all
-                        hover:bg-[#FDDA02]
-                        hover:text-slate-900
+                        hover:bg-[#4DA8FE]
+                        hover:text-white
                     "
                 >
                     View

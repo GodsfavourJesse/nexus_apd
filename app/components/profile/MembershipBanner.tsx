@@ -13,7 +13,7 @@ export default function MembershipBanner() {
     const membership = user?.membership;
 
     return (
-        <div className="mx-4 mt-4 flex items-center justify-between rounded-2xl bg-gradient-to-r from-[#FFC738] to-[#FFA000] px-5 py-4 shadow-sm">
+        <div className="mx-4 mt-4 flex items-center justify-between rounded-2xl bg-gradient-to-r from-[#7CC0FF] to-[#4DA8FE] px-5 py-4 shadow-sm">
 
             <div className="flex items-center gap-3">
 

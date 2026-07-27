@@ -7,7 +7,7 @@ export default function LoginFormFooter() {
                 Don&apos;t have an account?{" "}
                 <Link
                     href="/register"
-                    className="text-[16px] text-yellow-500 hover:text-yellow-600"
+                    className="text-[16px] text-[#4DA8FE] hover:text-[#2B84E0]"
                 >
                     Register
                 </Link>

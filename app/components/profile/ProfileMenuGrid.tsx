@@ -50,14 +50,14 @@ export default function ProfileMenuGrid() {
                         <div
                             className="
                                 flex h-14 w-14 items-center justify-center
-                                rounded-2xl bg-[#FFF3D9]
-                                transition group-hover:bg-[#FFE9B8]
+                                rounded-2xl bg-[#E8F3FF]
+                                transition group-hover:bg-[#D6EAFF]
                                 group-active:scale-95
                             "
                         >
                             <Icon
                                 size={24}
-                                className="text-[#FF9A1F]"
+                                className="text-[#2B84E0]"
                                 strokeWidth={1.8}
                             />
                         </div>

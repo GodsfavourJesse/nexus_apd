@@ -68,7 +68,8 @@ export default function AboutCompany() {
                             rounded-full
                             bg-slate-100
                             transition
-                            hover:bg-[#FDDA02]
+                            hover:bg-[#4DA8FE]
+                            hover:text-white
                         "
                     >
                         <ChevronLeft size={20} />
@@ -95,16 +96,16 @@ export default function AboutCompany() {
                         overflow-hidden
                         rounded-3xl
                         bg-gradient-to-br
-                        from-[#FFE97A]
-                        via-[#FDDA02]
-                        to-[#F5C400]
+                        from-[#EAF4FF]
+                        via-[#7CC0FF]
+                        to-[#4DA8FE]
                         p-7
-                        shadow-lg
+                        shadow-[0_20px_50px_-15px_rgba(77,168,254,.45)]
                     "
                 >
                     {/* Decorative circles */}
-                    <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-white/20 blur-2xl" />
-                    <div className="absolute -bottom-10 -left-10 h-32 w-32 rounded-full bg-white/25 blur-xl" />
+                    <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-white/25 blur-2xl" />
+                    <div className="absolute -bottom-10 -left-10 h-32 w-32 rounded-full bg-white/20 blur-xl" />
 
                     <div className="relative">
 
@@ -122,25 +123,55 @@ export default function AboutCompany() {
                         >
                             <Sparkles
                                 size={15}
-                                className="text-amber-700"
+                                className="text-white"
                             />
 
-                            <span className="text-xs font-semibold text-slate-800">
+                            <span className="text-xs font-semibold text-slate-900">
                                 About PXES
                             </span>
                         </div>
 
-                        <h2 className="mt-5 text-3xl font-bold text-slate-900">
+                        <h2 className="mt-5 text-3xl font-bold leading-tight text-slate-900">
                             Building the Future of
                             <br />
                             E-Commerce Marketing
                         </h2>
 
-                        <p className="mt-4 max-w-sm text-sm leading-7 text-slate-700">
+                        <p className="mt-4 max-w-sm text-sm leading-7 text-slate-800">
                             Helping merchants grow faster through intelligent
                             digital marketing, global partnerships and an
                             innovative reward ecosystem.
                         </p>
+
+                        {/* Quick stats */}
+                        <div className="mt-6 flex gap-6 border-t border-white/30 pt-5">
+                            <div>
+                                <p className="text-lg font-bold text-slate-900">
+                                    2025
+                                </p>
+                                <p className="text-xs text-slate-800/80">
+                                    Founded
+                                </p>
+                            </div>
+
+                            <div>
+                                <p className="text-lg font-bold text-slate-900">
+                                    3+
+                                </p>
+                                <p className="text-xs text-slate-800/80">
+                                    Global Marketplaces
+                                </p>
+                            </div>
+
+                            <div>
+                                <p className="text-lg font-bold text-slate-900">
+                                    60%
+                                </p>
+                                <p className="text-xs text-slate-800/80">
+                                    Revenue Shared
+                                </p>
+                            </div>
+                        </div>
 
                     </div>
                 </section>
@@ -150,38 +181,66 @@ export default function AboutCompany() {
                 ============================ */}
                 <section className="space-y-5">
 
-                    {sections.map((section) => {
+                    {sections.map((section, i) => {
                         const Icon = section.icon;
 
                         return (
                             <article
                                 key={section.title}
                                 className="
+                                    group
                                     rounded-3xl
                                     border
                                     border-slate-200
                                     bg-white
                                     p-6
                                     shadow-sm
+                                    transition
+                                    hover:border-[#4DA8FE]/30
+                                    hover:shadow-md
                                 "
                             >
                                 <div className="flex items-center gap-4">
 
                                     <div
                                         className="
+                                            relative
                                             flex
                                             h-12
                                             w-12
+                                            shrink-0
                                             items-center
                                             justify-center
                                             rounded-2xl
-                                            bg-[#FDDA02]/20
+                                            bg-[#4DA8FE]/10
+                                            transition
+                                            group-hover:bg-[#4DA8FE]/15
                                         "
                                     >
                                         <Icon
                                             size={22}
-                                            className="text-amber-700"
+                                            className="text-[#2B84E0]"
                                         />
+
+                                        <span
+                                            className="
+                                                absolute
+                                                -right-1.5
+                                                -top-1.5
+                                                flex
+                                                h-5
+                                                w-5
+                                                items-center
+                                                justify-center
+                                                rounded-full
+                                                bg-slate-900
+                                                text-[10px]
+                                                font-bold
+                                                text-white
+                                            "
+                                        >
+                                            {i + 1}
+                                        </span>
                                     </div>
 
                                     <div>
@@ -189,7 +248,7 @@ export default function AboutCompany() {
                                             {section.title}
                                         </h3>
 
-                                        <div className="mt-1 h-1 w-12 rounded-full bg-[#FDDA02]" />
+                                        <div className="mt-1 h-1 w-12 rounded-full bg-[#4DA8FE]" />
                                     </div>
 
                                 </div>
@@ -208,17 +267,23 @@ export default function AboutCompany() {
                 ============================ */}
                 <section
                     className="
+                        relative
+                        overflow-hidden
                         rounded-3xl
                         bg-slate-900
                         p-7
                         text-white
                     "
                 >
-                    <h3 className="text-xl font-semibold">
+                    <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-[#4DA8FE]/20 blur-3xl" />
+
+                    <h3 className="relative text-xl font-semibold">
                         Our Mission
                     </h3>
 
-                    <p className="mt-4 text-sm leading-7 text-slate-300">
+                    <div className="relative mt-2 h-1 w-12 rounded-full bg-[#4DA8FE]" />
+
+                    <p className="relative mt-5 text-sm leading-7 text-slate-300">
                         To empower businesses worldwide with innovative digital
                         marketing solutions while creating meaningful earning
                         opportunities for our growing global community of

@@ -103,8 +103,8 @@ export default function AppFooter() {
                                         items-center
                                         justify-center
                                         rounded-full
-                                        bg-[#FDDA02]
-                                        shadow-[0_15px_30px_rgba(253,218,2,.45)]
+                                        bg-[#4DA8FE]
+                                        shadow-[0_15px_30px_rgba(77,168,254,.45)]
                                         ring-8
                                         ring-white/70
                                         transition-transform
@@ -114,7 +114,7 @@ export default function AppFooter() {
 
                                     <Icon
                                         size={28}
-                                        className="text-[#1F2937]"
+                                        className="text-white"
                                     />
 
                                 </div>
@@ -155,7 +155,7 @@ export default function AppFooter() {
                                 strokeWidth={2}
                                 className={
                                     active
-                                        ? "text-[#FDDA02]"
+                                        ? "text-[#4DA8FE]"
                                         : "text-[#6B7280]"
                                 }
                             />
@@ -163,7 +163,7 @@ export default function AppFooter() {
                             <span
                                 className={`text-[11px] font-medium ${
                                     active
-                                        ? "text-[#FDDA02]"
+                                        ? "text-[#4DA8FE]"
                                         : "text-[#374151]"
                                 }`}
                             >

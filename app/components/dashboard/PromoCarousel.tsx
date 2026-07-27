@@ -91,10 +91,10 @@ export default function PromoCarousel() {
                     overflow-hidden
                     rounded-[30px]
                     bg-gradient-to-br
-                    from-[#FFF8D8]
-                    via-[#FFE57A]
-                    to-[#FDDA02]
-                    shadow-[0_25px_60px_rgba(253,218,2,.35)]
+                    from-[#EAF4FF]
+                    via-[#9BCBFF]
+                    to-[#4DA8FE]
+                    shadow-[0_25px_60px_rgba(77,168,254,.35)]
                 "
                 onMouseEnter={() => setPaused(true)}
                 onMouseLeave={() => setPaused(false)}
@@ -105,12 +105,12 @@ export default function PromoCarousel() {
 
                 <div className="absolute -top-16 -right-10 h-48 w-48 rounded-full bg-white/40 blur-3xl" />
 
-                <div className="absolute bottom-0 left-0 h-28 w-28 rounded-full bg-orange-300/40 blur-2xl" />
+                <div className="absolute bottom-0 left-0 h-28 w-28 rounded-full bg-blue-300/40 blur-2xl" />
 
                 <div className="absolute right-6 top-5 rounded-full bg-white/40 p-2 backdrop-blur-xl">
                     <Sparkles
                         size={18}
-                        className="text-yellow-700"
+                        className="text-blue-700"
                     />
                 </div>
 
@@ -145,7 +145,7 @@ export default function PromoCarousel() {
                                         py-1
                                         text-[11px]
                                         font-semibold
-                                        text-yellow-800
+                                        text-blue-800
                                         backdrop-blur-xl
                                     "
                                 >
@@ -212,7 +212,7 @@ export default function PromoCarousel() {
                                 >
                                     <ShoppingBag
                                         size={18}
-                                        className="text-yellow-600"
+                                        className="text-blue-600"
                                     />
                                 </div>
 
@@ -231,7 +231,7 @@ export default function PromoCarousel() {
                                 >
                                     <Gift
                                         size={18}
-                                        className="text-yellow-600"
+                                        className="text-blue-600"
                                     />
                                 </div>
                             </div>
@@ -253,7 +253,7 @@ export default function PromoCarousel() {
                             duration-300
                             ${
                                 i === index
-                                    ? "h-2 w-8 bg-[#FDDA02]"
+                                    ? "h-2 w-8 bg-[#4DA8FE]"
                                     : "h-2 w-2 bg-slate-300"
                             }
                         `}

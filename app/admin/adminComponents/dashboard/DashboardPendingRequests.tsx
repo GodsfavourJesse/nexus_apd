@@ -11,10 +11,15 @@ import { PendingUpgradeRequest } from "@/app/types/dashboard.types";
 
 interface WithdrawalRequest {
     id: string;
-    user: string;
     amount: string;
-    bank: string;
+    bankName: string;
+    accountName: string;
+    accountNumber: string;
     createdAt: string;
+    user: {
+        phone: string;
+        email: string | null;
+    };
 }
 
 interface DashboardPendingRequestsProps {
@@ -194,21 +199,18 @@ export default function DashboardPendingRequests({
                                     <div>
                                         <p className="font-medium text-slate-900">
                                             {
-                                                request.user
+                                                request.user.phone
                                             }
                                         </p>
 
                                         <p className="mt-1 text-xs text-slate-500">
                                             {
-                                                request.bank
+                                                request.bankName
                                             }
                                         </p>
 
                                         <p className="mt-1 text-xs font-medium text-emerald-600">
-                                            ₦
-                                            {Number(
-                                                request.amount,
-                                            ).toLocaleString()}
+                                            ₦{Number(request.amount).toLocaleString()}
                                         </p>
                                     </div>
 

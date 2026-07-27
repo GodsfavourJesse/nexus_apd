@@ -75,12 +75,13 @@ export default function ProfileStatsCard({
                                 mt-4
                                 w-full
                                 rounded-xl
-                                bg-[#FDDA02]
+                                bg-[#4DA8FE]
                                 py-2.5
                                 text-sm
                                 font-semibold
-                                text-slate-900
+                                text-white
                                 transition
+                                hover:bg-[#2B84E0]
                                 active:scale-95
                                 cursor-pointer
                             "

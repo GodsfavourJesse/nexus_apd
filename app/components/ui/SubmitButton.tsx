@@ -19,11 +19,16 @@ export default function SubmitButton({
             disabled={loading}
             className={`
                 flex w-full items-center justify-center gap-2
-                rounded-xl bg-yellow-400 py-5
-                text-[16px] font-medium text-black/70
-                transition
-                hover:bg-yellow-500 cursor-pointer
-                disabled:cursor-not-allowed disabled:opacity-60
+                rounded-xl bg-[#4DA8FE] py-4
+                text-[15px] font-semibold text-white
+                shadow-sm
+                transition-all duration-150
+                hover:bg-[#2B84E0] hover:shadow-md
+                active:scale-[0.98] active:bg-[#2170C0]
+                focus-visible:outline-none focus-visible:ring-2
+                focus-visible:ring-[#4DA8FE] focus-visible:ring-offset-2
+                disabled:cursor-not-allowed disabled:opacity-60 disabled:active:scale-100
+                cursor-pointer
                 ${className ?? ""}
             `}
             {...rest}

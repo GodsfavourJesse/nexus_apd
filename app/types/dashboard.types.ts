@@ -33,16 +33,21 @@ export interface PendingUpgradeRequest {
     };
 }
 
-/* ============================
-   Pending Withdrawal
-============================ */
-
+// Pending Withdrawal
 export interface PendingWithdrawal {
     id: string;
-    userId: string;
     amount: string;
     status: string;
+    accountName: string;
+    accountNumber: string;
+    bankName: string;
     createdAt: string;
+    user: {
+        id: string;
+        phone: string;
+        email: string | null;
+        referralCode: string;
+    };
 }
 
 /* ============================
