@@ -7,11 +7,13 @@ export const ROUTES = {
 
     MESSAGES: "/messages",
 
-    REFERRALS: "/referrals",
+    // REFERRALS: "/referrals",
 
     WALLET: "/wallet",
 
     PROFILE: "/dashboard/profile",
+    
+    MEMBERS: "/dashboard/membership",
 
     ABOUT: "/dashboard/about",
 

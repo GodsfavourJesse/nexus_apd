@@ -32,7 +32,7 @@ const tabs = [
     },
     {
         label: "Members",
-        href: ROUTES.REFERRALS,
+        href: ROUTES.MEMBERS,
         icon: Users,
     },
     {

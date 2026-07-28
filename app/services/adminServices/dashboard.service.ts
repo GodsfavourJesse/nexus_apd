@@ -1,9 +1,9 @@
-import { api } from "./api";
+import { api } from "../api";
 
 import {
     DashboardData,
     DashboardResponse,
-} from "../types/dashboard.types";
+} from "../../types/adminTypes/dashboard.types";
 
 class DashboardService {
     async getDashboard(): Promise<DashboardData> {

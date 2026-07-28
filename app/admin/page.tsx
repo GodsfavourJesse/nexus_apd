@@ -4,7 +4,7 @@ import DashboardPendingRequests from "./adminComponents/dashboard/DashboardPendi
 import DashboardRecentActivity from "./adminComponents/dashboard/DashboardRecentActivity";
 import DashboardRevenueChart from "./adminComponents/dashboard/DashboardRevenueChart";
 import DashboardStats from "./adminComponents/dashboard/DashboardStats";
-import { useDashboard } from "../hooks/useDashboard";
+import { useDashboard } from "../hooks/adminHooks/useDashboard";
 import DashboardQuickActions from "./adminComponents/dashboard/DashboardQuickActions";
 import DashboardUserGrowthChart from "./adminComponents/dashboard/DashboardUserGrowthChart";
 

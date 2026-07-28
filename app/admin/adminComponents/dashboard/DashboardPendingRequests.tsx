@@ -7,7 +7,7 @@ import {
     ChevronRight,
     Clock3,
 } from "lucide-react";
-import { PendingUpgradeRequest } from "@/app/types/dashboard.types";
+import { PendingUpgradeRequest } from "@/app/types/adminTypes/dashboard.types";
 
 interface WithdrawalRequest {
     id: string;
