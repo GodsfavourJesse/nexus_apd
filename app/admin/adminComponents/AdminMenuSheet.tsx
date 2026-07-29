@@ -16,6 +16,7 @@ import {
     FileBarChart2,
     Settings,
     LogOut,
+    Film,
 } from "lucide-react";
 
 import Cookies from "js-cookie";
@@ -62,7 +63,7 @@ const BUSINESS: MenuItem[] = [
     },
     {
         title: "Daily Order Config",
-        href: "/admin/daily-orders",
+        href: "/admin/daily-order-configs",
         icon: ClipboardList,
     },
     {
@@ -74,6 +75,11 @@ const BUSINESS: MenuItem[] = [
         title: "Reports",
         href: "/admin/reports",
         icon: FileBarChart2,
+    },
+    {
+        title: "Advertisements",
+        href: "/admin/advertisements",
+        icon: Film,
     },
     {
         title: "Settings",

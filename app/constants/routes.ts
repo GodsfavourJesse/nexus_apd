@@ -28,4 +28,6 @@ export const ROUTES = {
     DASHBOARD: "/dashboard",
 
     ADMIN_DASHBOARD: "/admin/dashboard",
+
+    ADMIN_ADVERTISEMENT: "/admin/advertisements"
 } as const;
