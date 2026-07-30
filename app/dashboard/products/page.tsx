@@ -6,9 +6,12 @@ import ProductsHeader from "@/app/components/productComponents/ProductsHeader";
 import ProductsStatsCard from "@/app/components/productComponents/ProductsStatsCard";
 import ProductSkeleton from "@/app/components/productComponents/ProductSkeleton";
 import { useProducts } from "@/app/hooks/productsHooks/useProducts";
+import { useProductDashboard } from "@/app/hooks/productsHooks/useProductDashboard";
 
 export default function ProductsPage() {
     const { data: products = [], isLoading } = useProducts();
+
+    const { data: dashboard } = useProductDashboard();
 
     return (
         <div className="relative overflow-x-hidden min-h-full bg-slate-50 pb-12">
@@ -19,11 +22,21 @@ export default function ProductsPage() {
             {/* Floating Card */}
             <div className="absolute top-30 w-full z-30">
                 <ProductsStatsCard
-                    todaysEarnings={0}
-                    remaining={products.length}
-                    totalQuota={products.length}
-                    totalCompleted={products.length}
-                    completedToday={0}
+                    todaysEarnings={
+                        dashboard?.todaysEarnings ?? 0
+                    }
+                    remaining={
+                        dashboard?.remaining ?? 0
+                    }
+                    totalQuota={
+                        dashboard?.dailyLimit ?? 0
+                    }
+                    totalCompleted={
+                        dashboard?.dailyLimit ?? 0
+                    }
+                    completedToday={
+                        dashboard?.completedToday ?? 0
+                    }
                 />
             </div>
 

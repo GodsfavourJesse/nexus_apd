@@ -23,22 +23,23 @@ export function useCompleteProduct() {
                 productId,
             ),
 
-        onSuccess: (
-            _,
-            productId,
-        ) => {
+        onSuccess: (_, productId) => {
 
             toast.success(
                 "Task completed successfully.",
             );
 
             /**
-             * Products
+             * Refresh available products.
+             * The completed product will disappear.
              */
             queryClient.invalidateQueries({
                 queryKey: ["products"],
             });
 
+            /**
+             * Refresh product details.
+             */
             queryClient.invalidateQueries({
                 queryKey: [
                     "product",
@@ -47,7 +48,7 @@ export function useCompleteProduct() {
             });
 
             /**
-             * Completion status
+             * Refresh completion status.
              */
             queryClient.invalidateQueries({
                 queryKey: [
@@ -57,21 +58,21 @@ export function useCompleteProduct() {
             });
 
             /**
-             * Wallet
+             * Refresh product statistics.
+             */
+            queryClient.invalidateQueries({
+                queryKey: ["product-dashboard"],
+            });
+
+            /**
+             * Refresh wallet.
              */
             queryClient.invalidateQueries({
                 queryKey: ["wallet"],
             });
 
             /**
-             * Dashboard summary
-             */
-            queryClient.invalidateQueries({
-                queryKey: ["dashboard"],
-            });
-
-            /**
-             * Transactions
+             * Refresh transaction history.
              */
             queryClient.invalidateQueries({
                 queryKey: ["transactions"],

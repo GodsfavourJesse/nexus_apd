@@ -3,9 +3,22 @@ import axiosInstance from "@/app/lib/axios";
 import {
     ApiResponse,
     Product,
+    ProductDashboard,
 } from "@/app/types/product.types";
 
 class ProductService {
+
+    async getDashboard(): Promise<ProductDashboard> {
+        const response =
+            await axiosInstance.get<
+                ApiResponse<ProductDashboard>
+            >(
+                "/products/dashboard",
+            );
+
+        return response.data.data;
+
+    }
 
     /**
      * Get available products.

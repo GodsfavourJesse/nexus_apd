@@ -14,6 +14,7 @@ export default function ProductDetailsPage() {
     const productId = params.id as string;
 
     const { data: product, isLoading } = useProduct(productId);
+    
 
     if (isLoading) {
         return (

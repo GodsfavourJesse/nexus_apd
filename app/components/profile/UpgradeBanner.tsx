@@ -6,7 +6,7 @@ interface UpgradeBannerProps {
 }
 
 export default function UpgradeBanner({
-    href = "/upgrade",
+    href = "/dashboard/membership",
 }: UpgradeBannerProps) {
     return (
         <Link
