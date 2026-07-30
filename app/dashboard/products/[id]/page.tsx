@@ -5,8 +5,8 @@ import { useParams } from "next/navigation";
 import { useProduct } from "@/app/hooks/productsHooks/useProduct";
 import ProductDetailsHeader from "@/app/components/productComponents/ProductDetailsHeader";
 import ProductHero from "@/app/components/productComponents/ProductHero";
+import FansRushingCard from "@/app/components/productComponents/FansRushingCard";
 import ProductDescription from "@/app/components/productComponents/ProductDescription";
-import ProductRewardCard from "@/app/components/productComponents/ProductRewardCard";
 import ProductAction from "@/app/components/productComponents/ProductAction";
 
 export default function ProductDetailsPage() {
@@ -44,8 +44,11 @@ export default function ProductDetailsPage() {
             <div className="flex-1 overflow-y-auto pb-6">
                 <ProductHero product={product} />
 
-                <div className="mt-5 flex flex-col gap-4">
-                    <ProductRewardCard />
+                <div className="mt-4">
+                    <FansRushingCard />
+                </div>
+
+                <div className="mt-4">
                     <ProductDescription product={product} />
                 </div>
             </div>

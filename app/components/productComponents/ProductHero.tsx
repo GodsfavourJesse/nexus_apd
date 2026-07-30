@@ -7,44 +7,36 @@ interface ProductHeroProps {
 }
 
 export default function ProductHero({ product }: ProductHeroProps) {
+    const commission = (product as any).commission ?? "150";
+    const sold = (product as any).sold ?? (product as any).quantity ?? "9999";
+
     return (
-        <div>
-            {/* Banner — edge to edge, iOS hero image standard */}
-            <div className="relative h-56 w-full bg-slate-100">
-                {product.bannerUrl ? (
+        <div className="px-4 pt-4">
+            <div className="overflow-hidden rounded-2xl bg-slate-50">
+                {product.bannerUrl || product.thumbnailUrl ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
-                        src={product.bannerUrl}
+                        src={product.bannerUrl || product.thumbnailUrl}
                         alt={product.title}
-                        className="h-full w-full object-cover"
+                        className="w-full object-cover"
                     />
                 ) : (
-                    <div className="flex h-full items-center justify-center text-sm text-slate-400">
-                        No Banner
+                    <div className="flex h-56 items-center justify-center text-sm text-slate-400">
+                        No Image
                     </div>
                 )}
             </div>
 
-            <div className="px-4 pt-4">
-                <div className="flex items-start gap-3">
-                    <div className="h-16 w-16 shrink-0 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                            src={product.thumbnailUrl}
-                            alt={product.title}
-                            className="h-full w-full object-cover"
-                        />
-                    </div>
+            <h1 className="mt-4 text-[19px] font-medium leading-snug text-slate-900">
+                {product.title}
+            </h1>
 
-                    <div className="min-w-0 flex-1 pt-0.5">
-                        <h1 className="text-[22px] font-bold leading-tight tracking-tight text-slate-900">
-                            {product.title}
-                        </h1>
-                        <p className="mt-1 text-[15px] leading-5 text-slate-500">
-                            {product.shortDescription}
-                        </p>
-                    </div>
-                </div>
+            <div className="mt-1 flex items-center justify-between">
+                <p className="text-[14px] font-semibold text-red-500">
+                    Order Earnings：NGN {commission}
+                </p>
+
+                <p className="text-sm text-slate-400">Sold {sold}</p>
             </div>
         </div>
     );

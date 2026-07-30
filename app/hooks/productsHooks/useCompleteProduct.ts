@@ -29,15 +29,16 @@ export function useCompleteProduct() {
         ) => {
 
             toast.success(
-                "✓ Task completed successfully.",
+                "Task completed successfully.",
             );
 
-            // Refresh the product list
+            /**
+             * Products
+             */
             queryClient.invalidateQueries({
                 queryKey: ["products"],
             });
 
-            // Refresh this product
             queryClient.invalidateQueries({
                 queryKey: [
                     "product",
@@ -45,12 +46,35 @@ export function useCompleteProduct() {
                 ],
             });
 
-            // Refresh completion status
+            /**
+             * Completion status
+             */
             queryClient.invalidateQueries({
                 queryKey: [
                     "completed-advertisement",
                     productId,
                 ],
+            });
+
+            /**
+             * Wallet
+             */
+            queryClient.invalidateQueries({
+                queryKey: ["wallet"],
+            });
+
+            /**
+             * Dashboard summary
+             */
+            queryClient.invalidateQueries({
+                queryKey: ["dashboard"],
+            });
+
+            /**
+             * Transactions
+             */
+            queryClient.invalidateQueries({
+                queryKey: ["transactions"],
             });
 
         },
@@ -61,7 +85,7 @@ export function useCompleteProduct() {
 
             toast.error(
                 error?.response?.data?.message ??
-                "Unable to complete product.",
+                "Unable to complete task.",
             );
 
         },

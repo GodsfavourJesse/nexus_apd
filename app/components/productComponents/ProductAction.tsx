@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Loader2, Check } from "lucide-react";
 
 import { Product } from "@/app/types/product.types";
@@ -25,12 +26,32 @@ export default function ProductAction({
     const completeProduct =
         useCompleteProduct();
 
+    /**
+     * Local state so the button updates
+     * immediately after a successful completion.
+     */
+    const [
+        isCompleted,
+        setIsCompleted,
+    ] = useState(false);
+
+    useEffect(() => {
+        setIsCompleted(completed);
+    }, [completed]);
+
     const handleComplete = () => {
 
-        if (completed) return;
+        if (isCompleted) {
+            return;
+        }
 
         completeProduct.mutate(
             product.id,
+            {
+                onSuccess: () => {
+                    setIsCompleted(true);
+                },
+            },
         );
 
     };
@@ -59,7 +80,7 @@ export default function ProductAction({
                 type="button"
                 onClick={handleComplete}
                 disabled={
-                    completed ||
+                    isCompleted ||
                     loading
                 }
                 className={`
@@ -77,11 +98,11 @@ export default function ProductAction({
                     active:scale-[0.98]
 
                     ${
-                        completed
+                        isCompleted
                             ? "bg-emerald-600 cursor-not-allowed"
                             : loading
-                            ? "bg-slate-400 cursor-wait"
-                            : "bg-[#199FFF] hover:bg-[#0d8de7]"
+                                ? "bg-slate-400 cursor-wait"
+                                : "bg-[#199FFF] hover:bg-[#0d8de7]"
                     }
                 `}
             >
@@ -94,7 +115,7 @@ export default function ProductAction({
                         />
                         Processing...
                     </>
-                ) : completed ? (
+                ) : isCompleted ? (
                     <>
                         <Check size={18} />
                         Completed
@@ -107,7 +128,7 @@ export default function ProductAction({
             </button>
 
             <p className="mt-2 text-center text-[12px] text-slate-400">
-                {completed
+                {isCompleted
                     ? "You have already completed this task."
                     : "Complete this task once to qualify for rewards."}
             </p>

@@ -8,7 +8,7 @@ interface Props {
 
 export default function ProductDescription({ product }: Props) {
     return (
-        <section className="mx-4 rounded-2xl border border-slate-200 bg-white p-4">
+        <section className="w-1fullmx-4 p-4">
             <h2 className="text-[17px] font-semibold text-slate-900">
                 Description
             </h2>

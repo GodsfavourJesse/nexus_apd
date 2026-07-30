@@ -7,7 +7,7 @@ interface AdminSelectFieldProps
     error?: string;
 }
 
-const AdminSelectField = forwardRef
+const AdminSelectField = forwardRef<
     HTMLSelectElement,
     AdminSelectFieldProps
 >(({ label, error, className, children, ...rest }, ref) => {

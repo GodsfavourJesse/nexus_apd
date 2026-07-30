@@ -106,21 +106,16 @@ const advertisementBaseSchema = z.object({
      * later without changing the database schema.
      */
     targetUrl: z
-        .union([
-            z.literal(""),
-            z.string().trim().url(urlMessage),
-        ])
-        .optional(),
+        .string()
+        .trim()
+        .min(1, requiredMessage)
+        .url(urlMessage),
 
     category: z
         .string()
         .trim()
-        .max(
-            120,
-            "Category cannot exceed 120 characters.",
-        )
-        .optional()
-        .or(z.literal("")),
+        .min(1, requiredMessage)
+        .max(120),
 
     priority: z
         .number()

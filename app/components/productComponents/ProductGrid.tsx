@@ -5,11 +5,20 @@ interface Props {
     products: Product[];
 }
 
-export default function ProductGrid({ products }: Props) {
+export default function ProductGrid({
+    products,
+}: Props) {
     return (
-        <div className="flex flex-col gap-2.5">
+        <div
+            className="
+                grid grid-cols-2 gap-3
+            "
+        >
             {products.map((product) => (
-                <ProductCard key={product.id} product={product} />
+                <ProductCard
+                    key={product.id}
+                    product={product}
+                />
             ))}
         </div>
     );

@@ -74,12 +74,12 @@ export default function Profile() {
                     <ProfileStatsCard />
                     <MembershipBanner />
 
-                    {user && (
+                    {/* {user && (
                         <ReferralCard
                             referralCode={user.referralCode}
                             referralLink={referralLink}
                         />
-                    )}
+                    )} */}
 
                     <ProfileMenuGrid />
                     <SettingsList />
