@@ -53,7 +53,7 @@ export default function AdminLoginForm() {
             login(
                 response.data.accessToken,
                 response.data.refreshToken,
-                response.data.user,
+                // response.data.user,
             );
 
             /**

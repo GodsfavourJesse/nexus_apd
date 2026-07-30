@@ -15,60 +15,51 @@ export default function AuthProvider({
         logout,
     } = useAuthStore();
 
-    const [loading, setLoading] =
-        useState(true);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-
         async function restoreSession() {
-
             if (!refreshToken) {
                 setLoading(false);
                 return;
             }
 
             try {
-
-                const refreshResponse = await axiosInstance.post(
-                    "/auth/refresh",
-                    {
-                        refreshToken,
-                    }
-                );
+                const refreshResponse =
+                    await axiosInstance.post(
+                        "/auth/refresh",
+                        {
+                            refreshToken,
+                        },
+                    );
 
                 const {
-                    accessToken: newAccessToken,
+                    accessToken,
                     refreshToken: newRefreshToken,
                 } = refreshResponse.data.data;
 
                 useAuthStore
                     .getState()
                     .login(
-                        newAccessToken,
+                        accessToken,
                         newRefreshToken,
                     );
 
-                const response = await axiosInstance.get(
-                    "/auth/me"
-                );
+                const response =
+                    await axiosInstance.get(
+                        "/auth/me",
+                    );
 
                 setUser(response.data.data);
-
             } catch {
-
                 logout();
-
             } finally {
-
                 setLoading(false);
-
             }
-
         }
 
         restoreSession();
-
-    }, []);
+    }, [refreshToken, logout, setUser]);
 
     if (loading) {
         return null;

@@ -26,7 +26,7 @@ interface AuthState {
     login: (
         accessToken: string,
         refreshToken: string,
-        user: User,
+        // user: User,
     ) => void;
 
     logout: () => void;
@@ -67,15 +67,15 @@ export const useAuthStore =
                 login: (
                     accessToken,
                     refreshToken,
-                    user,
+                    // user,
                 ) =>
                     set({
                         accessToken,
                         refreshToken,
-                        user,
+                        // user,
                         isAuthenticated: true,
-                        isAdmin: user.role === "admin",
-                        isUser: user.role === "user",
+                        // isAdmin: user.role === "admin",
+                        // isUser: user.role === "user",
                     }),
 
                 logout: () =>

@@ -111,12 +111,14 @@ axiosInstance.interceptors.response.use(
                 const {
                     accessToken,
                     refreshToken,
+                    // user,
                 } = response.data.data;
 
                 // Update Zustand
                 auth.login(
                     accessToken,
                     refreshToken,
+                    // auth.user!,
                 );
 
                 // Retry original request

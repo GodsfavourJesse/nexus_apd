@@ -95,12 +95,6 @@ export default function EditAdvertisementPage() {
                     "Learn More",
                 targetUrl:
                     advertisement.targetUrl,
-                category:
-                    advertisement.category,
-                priority:
-                    advertisement.priority,
-                status:
-                    advertisement.status,
 
                 startDate: formatDate(advertisement.startDate),
 
