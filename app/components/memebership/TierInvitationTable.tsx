@@ -1,3 +1,9 @@
+import {
+    UserPlus,
+    Percent,
+    Wallet,
+} from "lucide-react";
+
 import { InvitationCommission } from "@/app/types/memebership.types";
 
 export default function TierInvitationTable({
@@ -6,37 +12,106 @@ export default function TierInvitationTable({
     rows: InvitationCommission[];
 }) {
     return (
-        <div className="mt-5">
-            <h3 className="mb-2 text-sm font-bold text-slate-900">
-                Invitation commission profit margin
-            </h3>
+        <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            {/* Header */}
+            <div
+                className="
+                    bg-gradient-to-r
+                    from-[#EEF7FF]
+                    via-[#E5F2FF]
+                    to-[#D9ECFF]
+                    px-5
+                    py-4
+                "
+            >
+                <h3 className="text-sm font-semibold text-[#2B84E0]">
+                    Referral Commission
+                </h3>
 
-            <div className="overflow-hidden rounded-2xl">
-                <div className="grid grid-cols-3 gap-2 bg-[#E8F3FF] px-4 py-3 text-xs font-semibold text-[#2B84E0]">
-                    <span>Invitation Method</span>
-                    <span className="text-center">
-                        Invitation commission rate
-                    </span>
-                    <span className="text-right">Income amount</span>
-                </div>
+                <p className="mt-1 text-xs text-slate-500">
+                    Earn referral bonuses whenever members you invite upgrade
+                    their membership.
+                </p>
+            </div>
 
-                {rows.map((row, i) => (
+            {/* Table Header */}
+            <div
+                className="
+                    grid
+                    grid-cols-[2fr_1fr_1fr]
+                    items-center
+                    border-y
+                    border-slate-100
+                    bg-slate-50
+                    px-5
+                    py-3
+                    text-xs
+                    font-semibold
+                    uppercase
+                    tracking-wide
+                    text-slate-500
+                "
+            >
+                <span className="flex items-center gap-2">
+                    <UserPlus size={14} />
+                    Referral
+                </span>
+
+                <span className="flex items-center justify-center gap-2">
+                    <Percent size={14} />
+                    Rate
+                </span>
+
+                <span className="flex items-center justify-end gap-2">
+                    <Wallet size={14} />
+                    Income
+                </span>
+            </div>
+
+            {/* Rows */}
+            <div className="divide-y divide-slate-100">
+                {rows.map((row, index) => (
                     <div
-                        key={i}
-                        className={`
-                            grid grid-cols-3 gap-2 px-4 py-3 text-sm
-                            text-slate-800
-                            ${i % 2 === 0 ? "bg-[#F5FAFF]" : "bg-white"}
-                        `}
+                        key={index}
+                        className="
+                            grid
+                            grid-cols-[2fr_1fr_1fr]
+                            items-center
+                            gap-3
+                            px-5
+                            py-4
+                            transition-colors
+                            hover:bg-blue-50/40
+                        "
                     >
-                        <span>{row.method}</span>
-                        <span className="text-center">{row.rate}</span>
-                        <span className="text-right">
-                            {row.incomeAmount.toLocaleString()}
-                        </span>
+                        <p className="text-sm leading-6 text-slate-700">
+                            {row.method}
+                        </p>
+
+                        <div className="flex justify-center">
+                            <span
+                                className="
+                                    rounded-full
+                                    bg-blue-50
+                                    px-3
+                                    py-1
+                                    text-xs
+                                    font-semibold
+                                    text-[#2B84E0]
+                                "
+                            >
+                                {row.rate}
+                            </span>
+                        </div>
+
+                        <div className="text-right">
+                            <p className="font-semibold text-[#2B84E0]">
+                                ₦{row.incomeAmount.toLocaleString()}
+                            </p>
+                        </div>
                     </div>
                 ))}
             </div>
-        </div>
+        </section>
     );
 }

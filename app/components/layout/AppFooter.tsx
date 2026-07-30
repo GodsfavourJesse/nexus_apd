@@ -74,8 +74,9 @@ export default function AppFooter() {
                 {tabs.map((tab) => {
 
                     const active =
-                        pathname === tab.href ||
-                        pathname.startsWith(tab.href + "/");
+                        tab.href === ROUTES.HOME
+                            ? pathname === ROUTES.HOME
+                            : pathname.startsWith(tab.href);
 
                     const Icon = tab.icon;
 
@@ -96,28 +97,35 @@ export default function AppFooter() {
                             >
 
                                 <div
-                                    className="
-                                        flex
-                                        h-16
-                                        w-16
-                                        items-center
-                                        justify-center
-                                        rounded-full
-                                        bg-[#4DA8FE]
-                                        shadow-[0_15px_30px_rgba(77,168,254,.45)]
-                                        ring-8
-                                        ring-white/70
-                                        transition-transform
-                                        hover:scale-105
-                                    "
-                                >
-
-                                    <Icon
-                                        size={28}
-                                        className="text-white"
-                                    />
-
-                                </div>
+    className={`
+        flex
+        h-16
+        w-16
+        items-center
+        justify-center
+        rounded-full
+        bg-[#4DA8FE]
+        ring-8
+        transition-all
+        duration-300
+        hover:scale-105
+        ${
+            active
+                ? "scale-110 ring-white shadow-[0_18px_40px_rgba(77,168,254,.55)]"
+                : "ring-white/70 shadow-[0_15px_30px_rgba(77,168,254,.35)]"
+        }
+    `}
+>
+    <Icon
+        size={28}
+        className={`
+            text-white
+            transition-transform
+            duration-300
+            ${active ? "scale-110" : ""}
+        `}
+    />
+</div>
 
                                 <span
                                     className="

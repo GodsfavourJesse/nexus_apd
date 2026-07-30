@@ -1,6 +1,8 @@
 import TierQuotaTable from "./TierQuotaTable";
 import TierInvitationTable from "./TierInvitationTable";
 import TierOrderCommissionTable from "./TierOrderCommissionTable";
+import { Lock, CheckCircle2 } from "lucide-react";
+
 import { MembershipTier } from "@/app/types/memebership.types";
 
 interface MembershipTierSlideProps {
@@ -13,67 +15,121 @@ export default function MembershipTierSlide({
     onJoin,
 }: MembershipTierSlideProps) {
     return (
-        <div className="rounded-3xl bg-[#FBF6EC] p-5">
-            <div className="flex items-center justify-between">
-                <span className="rounded-full bg-[#E8F3FF] px-3 py-1 text-xs font-semibold text-[#2B84E0]">
-                    {tier.isCurrent ? "Current Level" : "Locked"}
-                </span>
+        <div
+            className="
+                rounded-[30px]
+                border border-slate-200/70
+                bg-white/90
+                p-6
+                shadow-[0_18px_40px_-20px_rgba(15,23,42,0.25)]
+                backdrop-blur-xl
+            "
+        >
+            {/* Header */}
+            <div className="flex items-start justify-between gap-4">
+                <div>
+                    <span
+                        className={`
+                            inline-flex items-center gap-2 rounded-full
+                            px-3 py-1 text-xs font-semibold
+                            ${
+                                tier.isCurrent
+                                    ? "bg-blue-100 text-blue-700"
+                                    : "bg-slate-100 text-slate-600"
+                            }
+                        `}
+                    >
+                        {tier.isCurrent ? (
+                            <>
+                                <CheckCircle2 size={14} />
+                                Current Membership
+                            </>
+                        ) : (
+                            <>
+                                <Lock size={14} />
+                                Locked
+                            </>
+                        )}
+                    </span>
+
+                    <h2 className="mt-4 text-2xl font-bold text-slate-900">
+                        {tier.name}
+                    </h2>
+                </div>
 
                 {!tier.isCurrent && tier.price !== undefined && (
-                    <span className="font-serif text-lg font-bold text-slate-900">
-                        {tier.currency ?? "NGN"}{" "}
-                        {tier.price.toLocaleString()}
-                    </span>
+                    <div className="text-right">
+                        <p className="text-xs text-slate-500">
+                            Membership Fee
+                        </p>
+
+                        <p className="mt-1 text-2xl font-bold text-[#2B84E0]">
+                            {tier.currency ?? "NGN"}{" "}
+                            {tier.price.toLocaleString()}
+                        </p>
+                    </div>
                 )}
             </div>
 
-            <div className="mt-4 flex items-center justify-between">
-                <h2 className="text-xl font-bold text-slate-900">
-                    {tier.name}
-                </h2>
-
-                {!tier.isCurrent && (
-                    <button
-                        type="button"
-                        onClick={() => onJoin?.(tier.id)}
-                        className="
-                            rounded-full bg-gradient-to-r
-                            from-[#4DA8FE] to-[#2B84E0]
-                            px-5 py-2 text-sm font-bold text-white
-                            shadow-sm transition hover:brightness-105
-                        "
-                    >
-                        I want to join
-                    </button>
+            {/* Description */}
+            <div className="mt-6 rounded-2xl bg-blue-50 p-4">
+                {tier.isCurrent && (
+                    <p className="mb-2 text-sm font-semibold text-[#2B84E0]">
+                        Basic Rights & Benefits
+                    </p>
                 )}
-            </div>
 
-            {tier.isCurrent ? (
-                <>
-                    <p className="mt-3 text-sm font-bold text-[#2B84E0]">
-                        1. Basic rights and interests
-                    </p>
-                    <p className="mt-1 text-sm leading-relaxed text-slate-700">
-                        {tier.description}
-                    </p>
-                </>
-            ) : (
-                <p className="mt-3 text-sm leading-relaxed text-slate-700">
+                <p className="text-sm leading-7 text-slate-700">
                     {tier.description}
                 </p>
-            )}
-
-            <div className="mt-4">
-                <TierQuotaTable quota={tier.orderQuota} />
             </div>
 
-            {tier.invitationCommissions && (
-                <TierInvitationTable rows={tier.invitationCommissions} />
+            {/* Join Button */}
+            {!tier.isCurrent && (
+                <button
+                    type="button"
+                    onClick={() => onJoin?.(tier.id)}
+                    className="
+                        mt-6
+                        w-full
+                        rounded-2xl
+                        bg-gradient-to-r
+                        from-[#57B4FF]
+                        via-[#349FFF]
+                        to-[#197FEF]
+                        py-3.5
+                        text-sm
+                        font-semibold
+                        text-white
+                        shadow-lg
+                        shadow-blue-300/30
+                        transition-all
+                        duration-300
+                        hover:-translate-y-0.5
+                        hover:shadow-xl
+                        active:scale-[0.98]
+                    "
+                >
+                    Upgrade Membership
+                </button>
             )}
 
-            {tier.orderCommissions && (
-                <TierOrderCommissionTable rows={tier.orderCommissions} />
-            )}
+            {/* Tables */}
+            <div className="mt-7 space-y-6">
+                <TierQuotaTable quota={tier.orderQuota} />
+
+                {tier.invitationCommissions && (
+                    <TierInvitationTable
+                        rows={tier.invitationCommissions}
+                    />
+                )}
+
+                {tier.orderCommissions && (
+                    <TierOrderCommissionTable
+                        rows={tier.orderCommissions}
+                    />
+                )}
+            </div>
         </div>
     );
 }

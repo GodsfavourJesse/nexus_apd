@@ -51,6 +51,7 @@ export interface RegisterRequest {
     password: string;
     confirmPassword: string;
     referral: string;
+    country?: string;
 }
 
 export interface AuthResponse {

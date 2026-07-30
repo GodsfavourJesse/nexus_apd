@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 
 import "./globals.css";
 import QueryProvider from "./providers/query-provider";
+import AuthProvider from "./providers/AuthProvider";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -92,7 +93,10 @@ export default function RootLayout({
                                     no-scrollbar
                                 "
                             >
-                                {children}
+                                <AuthProvider>
+
+                                {   children}
+                                </AuthProvider>
                             </main>
 
                             {/* Global Toast Notifications */}

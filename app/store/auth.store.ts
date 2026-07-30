@@ -84,9 +84,7 @@ export const useAuthStore =
                 ) =>
                     set({
                         accessToken,
-
                         refreshToken,
-
                         isAuthenticated: true,
                     }),
 

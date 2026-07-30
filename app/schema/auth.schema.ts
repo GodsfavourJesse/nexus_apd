@@ -37,7 +37,14 @@ export const registerSchema = z
             .regex(/[0-9]/),
 
         confirmPassword: z.string(),
-    })
+
+        country: z
+            .string()
+            .trim()
+            .optional()
+            .or(z.literal("")),
+            })
+
     .refine(
         (data) => data.password === data.confirmPassword,
         {

@@ -63,6 +63,7 @@ export default function RegisterForm() {
                     password: values.password,
                     confirmPassword: values.confirmPassword,
                     referral: values.referral,
+                    country: values.country || "Nigeria",
                 });
 
             /**
@@ -133,6 +134,14 @@ export default function RegisterForm() {
                 placeholder="Confirm password"
                 error={errors.confirmPassword?.message}
                 {...register("confirmPassword")}
+            />
+
+            <TextField
+                label="Country"
+                placeholder="Nigeria"
+                hint="Leave blank if you're in Nigeria."
+                error={errors.country?.message}
+                {...register("country")}
             />
 
             <TextField

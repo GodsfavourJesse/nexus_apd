@@ -20,14 +20,18 @@ export default function UserGuard({
 
     useEffect(() => {
         if (!isAuthenticated) {
-            router.replace(ROUTES.LOGIN);
+            router.replace(
+                ROUTES.LOGIN
+            );
             return;
         }
 
         if (user?.role !== "user") {
-            router.replace(ROUTES.ADMIN_DASHBOARD);
+            router.replace(
+                ROUTES.ADMIN_DASHBOARD
+            );
         }
-    }, [user, isAuthenticated, router]);
+    }, [isAuthenticated, user, router]);
 
     if (!user) return null;
 

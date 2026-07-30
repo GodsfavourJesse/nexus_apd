@@ -9,7 +9,6 @@ import ActiveCenterBanner from "../components/dashboard/ActiveCenterBanner";
 import MenuGrid from "../components/dashboard/MenuGrid";
 import PromotedNotice from "../components/dashboard/PromotedNotice";
 import PromoCarousel from "../components/dashboard/PromoCarousel";
-import AppFooter from "../components/layout/AppFooter";
 import AboutCompany from "../components/dashboard/AboutCompany";
 
 
@@ -132,9 +131,6 @@ export default function DashboardPage(){
 
 
             </main>
-
-            <AppFooter />
-
 
         </UserGuard>
 

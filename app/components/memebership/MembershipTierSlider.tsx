@@ -1,9 +1,11 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+
 import TierBadge from "./TierBadge";
 import MembershipTierSlide from "./MembershipTierSlide";
+
 import { MembershipTier } from "@/app/types/memebership.types";
 
 interface MembershipTierSliderProps {
@@ -15,94 +17,219 @@ export default function MembershipTierSlider({
     tiers,
     onJoin,
 }: MembershipTierSliderProps) {
+    const scrollRef = useRef<HTMLDivElement>(null);
+
     const [index, setIndex] = useState(0);
-    const touchStartX = useRef<number | null>(null);
 
-    const active = tiers[index];
+    function scrollToCard(i: number) {
+        if (!scrollRef.current) return;
 
-    function goTo(i: number) {
-        setIndex(Math.max(0, Math.min(tiers.length - 1, i)));
+        const container = scrollRef.current;
+
+        const clamped = Math.max(
+            0,
+            Math.min(tiers.length - 1, i),
+        );
+
+        const cardWidth =
+            container.clientWidth + 20;
+
+        container.scrollTo({
+            left: clamped * cardWidth,
+            behavior: "smooth",
+        });
+
+        setIndex(clamped);
     }
 
-    function onTouchStart(e: React.TouchEvent) {
-        touchStartX.current = e.touches[0].clientX;
+    function handleScroll() {
+        if (!scrollRef.current) return;
+
+        const container = scrollRef.current;
+
+        const cardWidth =
+            container.clientWidth + 20;
+
+        const current = Math.round(
+            container.scrollLeft / cardWidth,
+        );
+
+        if (current !== index) {
+            setIndex(current);
+        }
     }
 
-    function onTouchEnd(e: React.TouchEvent) {
-        if (touchStartX.current === null) return;
-
-        const delta = e.changedTouches[0].clientX - touchStartX.current;
-
-        if (delta > 50) goTo(index - 1);
-        else if (delta < -50) goTo(index + 1);
-
-        touchStartX.current = null;
-    }
+    useEffect(() => {
+        scrollToCard(0);
+    }, []);
 
     return (
         <div className="w-full">
-            <div className="w-full flex flex-col items-center justify-center">
-                <h1>Member</h1>
-
-                {/* Header with badge */}
-                <div
-                    className="w-[90%]
-                        relative overflow-hidden rounded-t-[28px] rounded-b-[50%]
-                        bg-gradient-to-b from-[#7CC0FF] to-[#4DA8FE]
-                        px-6 pb-10 pt-8 
-                    "
-                    onTouchStart={onTouchStart}
-                    onTouchEnd={onTouchEnd}
-                >
-                    <div className="flex items-center justify-between">
-                        <button
-                            type="button"
-                            onClick={() => goTo(index - 1)}
-                            disabled={index === 0}
-                            className="text-white/80 transition hover:text-white disabled:opacity-30"
-                            aria-label="Previous tier"
+            {/* Card Slider */}
+            <div
+                ref={scrollRef}
+                onScroll={handleScroll}
+                className="
+                    flex
+                    snap-x
+                    snap-mandatory
+                    gap-5
+                    overflow-x-auto
+                    scroll-smooth
+                    scrollbar-none
+                    px-2
+                    pb-4
+                "
+            >
+                {tiers.map((tier) => (
+                    <div
+                        key={tier.id}
+                        className="
+                            w-full
+                            shrink-0
+                            snap-center
+                        "
+                    >
+                        {/* Premium Header */}
+                        <div
+                            className="
+                                relative
+                                overflow-hidden
+                                rounded-[34px]
+                                bg-gradient-to-br
+                                from-[#8ED1FF]
+                                via-[#4DA8FE]
+                                to-[#148EFF]
+                                px-6
+                                pb-12
+                                pt-8
+                                shadow-xl
+                            "
                         >
-                            <ChevronLeft size={28} strokeWidth={1.5} />
-                        </button>
+                            <div
+                                className="
+                                    absolute
+                                    -right-10
+                                    -top-10
+                                    h-32
+                                    w-32
+                                    rounded-full
+                                    bg-white/15
+                                    blur-2xl
+                                "
+                            />
 
-                        <TierBadge tier={active.tierIndex} />
+                            <div
+                                className="
+                                    absolute
+                                    -left-10
+                                    bottom-0
+                                    h-24
+                                    w-24
+                                    rounded-full
+                                    bg-white/10
+                                    blur-xl
+                                "
+                            />
 
-                        <button
-                            type="button"
-                            onClick={() => goTo(index + 1)}
-                            disabled={index === tiers.length - 1}
-                            className="text-white/80 transition hover:text-white disabled:opacity-30"
-                            aria-label="Next tier"
+                            <div className="relative flex items-center justify-between">
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        scrollToCard(index - 1)
+                                    }
+                                    disabled={index === 0}
+                                    className="
+                                        flex
+                                        h-10
+                                        w-10
+                                        items-center
+                                        justify-center
+                                        rounded-full
+                                        bg-white/15
+                                        text-white
+                                        backdrop-blur-md
+                                        disabled:opacity-30
+                                    "
+                                >
+                                    <ChevronLeft size={20} />
+                                </button>
+
+                                <TierBadge
+                                    tier={tier.tierIndex}
+                                />
+
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        scrollToCard(index + 1)
+                                    }
+                                    disabled={
+                                        index ===
+                                        tiers.length - 1
+                                    }
+                                    className="
+                                        flex
+                                        h-10
+                                        w-10
+                                        items-center
+                                        justify-center
+                                        rounded-full
+                                        bg-white/15
+                                        text-white
+                                        backdrop-blur-md
+                                        disabled:opacity-30
+                                    "
+                                >
+                                    <ChevronRight size={20} />
+                                </button>
+                            </div>
+
+                            <h3
+                                className="
+                                    mt-5
+                                    text-center
+                                    text-xl
+                                    font-bold
+                                    text-white
+                                "
+                            >
+                                {tier.name}
+                            </h3>
+                        </div>
+
+                        {/* Body */}
+                        <div
+                            className="
+                                -mt-8
+                                rounded-[28px]
+                                bg-white
+                                p-2
+                                shadow-[0_20px_45px_rgba(15,23,42,0.08)]
+                            "
                         >
-                            <ChevronRight size={28} strokeWidth={1.5} />
-                        </button>
+                            <MembershipTierSlide
+                                tier={tier}
+                                onJoin={onJoin}
+                            />
+                        </div>
                     </div>
-
-                    <h1 className="mt-3 text-center font-serif text-2xl font-bold italic text-slate-900">
-                        {active.name}
-                    </h1>
-                </div>
+                ))}
             </div>
 
-            {/* Body */}
-            <div className="-mt-5 rounded-t-[24px] bg-white px-1 pb-1 pt-1 shadow-[0_-10px_30px_-15px_rgba(15,23,42,0.15)]">
-                <MembershipTierSlide tier={active} onJoin={onJoin} />
-            </div>
-
-            {/* Dots */}
-            <div className="mt-4 flex items-center justify-center gap-1.5">
+            {/* Indicators */}
+            <div className="mt-5 flex justify-center gap-2">
                 {tiers.map((_, i) => (
                     <button
                         key={i}
-                        type="button"
-                        onClick={() => goTo(i)}
-                        aria-label={`Go to tier ${i + 1}`}
+                        onClick={() => scrollToCard(i)}
                         className={`
-                            h-1.5 rounded-full transition-all
+                            rounded-full
+                            transition-all
                             ${
-                                i === index
-                                    ? "w-5 bg-[#4DA8FE]"
-                                    : "w-1.5 bg-slate-200"
+                                index === i
+                                    ? "h-2 w-8 bg-[#2B84E0]"
+                                    : "h-2 w-2 bg-slate-300"
                             }
                         `}
                     />

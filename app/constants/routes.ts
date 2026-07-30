@@ -1,9 +1,9 @@
 export const ROUTES = {
-    HOME: "/",
+    HOME: "/dashboard",
 
     PRODUCTS: "/products",
 
-    ORDERS: "/dashboard/orders",
+    ORDERS: "/dashboard/products",
 
     MESSAGES: "/messages",
 
