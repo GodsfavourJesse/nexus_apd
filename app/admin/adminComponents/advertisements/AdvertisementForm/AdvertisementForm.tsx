@@ -36,14 +36,14 @@ const DEFAULT_VALUES: CreateAdvertisementFormValues = {
     fullDescription: "",
     thumbnailUrl: "",
     bannerUrl: "",
-    buttonText: "Learn More",
+    buttonText: "Rush to Order",
 
     // Campaign fields are optional now — sensible defaults so the
     // form/preview don't show "undefined" anywhere, but nothing here
     // blocks submission.
     targetUrl: "",
-    category: "",
-    priority: 0,
+    // category: "",
+    // priority: 0,
     startDate: undefined,
     endDate: undefined,
 };

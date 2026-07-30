@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { optional, z } from "zod";
 import { AdvertisementStatus } from "../types/adminTypes/advertisement.types";
 
 const urlMessage = "Please enter a valid URL.";
@@ -107,31 +107,29 @@ const advertisementBaseSchema = z.object({
      */
     targetUrl: z
         .string()
-        .trim()
-        .min(1, requiredMessage)
-        .url(urlMessage),
-
-    category: z
-        .string()
-        .trim()
-        .min(1, requiredMessage)
-        .max(120),
-
-    priority: z
-        .number()
-        .int("Priority must be a whole number.")
-        .min(
-            0,
-            "Priority cannot be less than 0.",
-        )
-        .max(
-            100,
-            "Priority cannot exceed 100.",
-        ),
-
-    status: z
-        .nativeEnum(AdvertisementStatus)
         .optional(),
+
+    // category: z
+    //     .string()
+    //     .trim()
+    //     .min(1, requiredMessage)
+    //     .max(120),
+
+    // priority: z
+    //     .number()
+    //     .int("Priority must be a whole number.")
+    //     .min(
+    //         0,
+    //         "Priority cannot be less than 0.",
+    //     )
+    //     .max(
+    //         100,
+    //         "Priority cannot exceed 100.",
+    //     ),
+
+    // status: z
+    //     .nativeEnum(AdvertisementStatus)
+    //     .optional(),
 
     startDate: dateSchema,
 

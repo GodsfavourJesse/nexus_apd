@@ -5,15 +5,17 @@ import { Settings, Pencil } from "lucide-react";
 import Image from "next/image";
 
 interface ProfileHeaderProps {
-    name: string;
+    // name: string;
     phone: string;
     avatarUrl?: string;
+    country: string;
 }
 
 export default function ProfileHeader({
-    name,
+    // name,
     phone,
     avatarUrl,
+    country,
 }: ProfileHeaderProps) {
     const router = useRouter();
 
@@ -33,14 +35,14 @@ export default function ProfileHeader({
                         {avatarUrl ? (
                             <Image
                                 src={avatarUrl}
-                                alt={name}
+                                alt={phone}
                                 fill
                                 className="object-cover"
                                 sizes="64px"
                             />
                         ) : (
                             <div className="flex h-full w-full items-center justify-center bg-slate-100 text-lg font-semibold text-slate-400">
-                                {name.charAt(0).toUpperCase()}
+                                {phone.charAt(0).toUpperCase()}
                             </div>
                         )}
                     </div>
@@ -60,9 +62,10 @@ export default function ProfileHeader({
 
                 <div>
                     <p className="text-xl font-semibold text-slate-900">
-                        {name}
+                        {phone}
                     </p>
-                    <p className="text-sm text-white/90">{phone}</p>
+                    {/* <p className="text-sm text-white/90">{phone}</p> */}
+                    <p className="text-sm text-white/90">{country}</p>
                 </div>
             </div>
         </div>

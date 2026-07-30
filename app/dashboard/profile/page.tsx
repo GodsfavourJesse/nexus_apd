@@ -47,8 +47,8 @@ export default function Profile() {
                         "
                     >
                         <ProfileHeader
-                            name={user?.phone ?? ""}
                             phone={user?.phone ?? ""}
+                            country={user?.country ?? ""}
                         />
                     </div>
 

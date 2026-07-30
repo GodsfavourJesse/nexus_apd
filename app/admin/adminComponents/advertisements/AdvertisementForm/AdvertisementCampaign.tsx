@@ -41,15 +41,15 @@ export default function AdvertisementCampaign({ form }: Props) {
             />
 
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                <AdminInput
+                {/* <AdminInput
                     id="category"
                     label="Category"
                     placeholder="Electronics"
                     error={errors.category?.message}
                     {...register("category")}
-                />
+                /> */}
 
-                <AdminInput
+                {/* <AdminInput
                     id="priority"
                     label="Priority"
                     type="number"
@@ -59,9 +59,9 @@ export default function AdvertisementCampaign({ form }: Props) {
                     hint="Higher priority shows first (0–100)."
                     error={errors.priority?.message}
                     {...register("priority", { valueAsNumber: true })}
-                />
+                /> */}
             </div>
-
+{/* 
             <AdminSelect
                 id="status"
                 label="Status"
@@ -73,7 +73,7 @@ export default function AdvertisementCampaign({ form }: Props) {
                         {opt.label}
                     </option>
                 ))}
-            </AdminSelect>
+            </AdminSelect> */}
 
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <AdminInput

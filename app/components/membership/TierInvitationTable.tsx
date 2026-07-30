@@ -84,7 +84,7 @@ export default function TierInvitationTable({
                             hover:bg-blue-50/40
                         "
                     >
-                        <p className="text-sm leading-6 text-slate-700">
+                        <p className="text-[14px] md:text-sm leading-6 text-slate-700">
                             {row.method}
                         </p>
 
@@ -105,7 +105,7 @@ export default function TierInvitationTable({
                         </div>
 
                         <div className="text-right">
-                            <p className="font-semibold text-[#2B84E0]">
+                            <p className="text-[16px] font-semibold text-[#2B84E0]">
                                 ₦{row.incomeAmount.toLocaleString()}
                             </p>
                         </div>

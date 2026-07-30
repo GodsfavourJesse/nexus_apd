@@ -36,11 +36,11 @@ export default function AdvertisementPreview({ values }: Props) {
                     </div>
 
                     <div className="space-y-2 p-4">
-                        {values.category && (
+                        {/* {values.category && (
                             <span className="inline-flex rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-medium text-blue-600">
                                 {values.category}
                             </span>
-                        )}
+                        )} */}
 
                         <h3 className="text-base font-semibold text-slate-900">
                             {values.title || "Advertisement title"}
@@ -68,7 +68,7 @@ export default function AdvertisementPreview({ values }: Props) {
                             {values.slug || "—"}
                         </dd>
                     </div>
-                    <div className="flex justify-between">
+                    {/* <div className="flex justify-between">
                         <dt>Priority</dt>
                         <dd className="text-slate-500">{values.priority ?? 0}</dd>
                     </div>
@@ -77,7 +77,7 @@ export default function AdvertisementPreview({ values }: Props) {
                         <dd className="text-slate-500">
                             {values.status ?? "draft"}
                         </dd>
-                    </div>
+                    </div> */}
                 </dl>
             </div>
         </div>

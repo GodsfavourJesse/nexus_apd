@@ -5,25 +5,33 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { Link, Phone } from "lucide-react";
+import { Phone } from "lucide-react";
 
 import { useAuthStore } from "@/app/store/auth.store";
-import { LoginFormData, loginSchema } from "@/app/schema/auth.schema";
+import {
+    LoginFormData,
+    loginSchema,
+} from "@/app/schema/auth.schema";
 import { authService } from "@/app/services/auth.service";
 import { ROUTES } from "@/app/constants/routes";
+
 import TextField from "../ui/TextField";
 import PasswordField from "../ui/PasswordField";
 import SubmitButton from "../ui/SubmitButton";
 import LoginFormFooter from "../ui/LoginFooter";
+
 import { walletService } from "@/app/services/wallet.service";
 import { useWalletStore } from "@/app/store/wallet.store";
 
-
 export default function LoginForm() {
     const router = useRouter();
-    const login = useAuthStore((state) => state.login);
 
-    const [loading, setLoading] = useState(false);
+    const login = useAuthStore(
+        (state) => state.login,
+    );
+
+    const [loading, setLoading] =
+        useState(false);
 
     const {
         register,
@@ -38,31 +46,28 @@ export default function LoginForm() {
     });
 
     const onSubmit = async (
-        data: LoginFormData,
+        values: LoginFormData,
     ) => {
         try {
             setLoading(true);
 
             const response =
-                await authService.login(data);
+                await authService.login(values);
+
+            const {
+                accessToken,
+                refreshToken,
+                user,
+            } = response.data;
 
             /**
-             * Save tokens
+             * Save authenticated session
              */
             login(
-                response.data.accessToken,
-                response.data.refreshToken,
+                accessToken,
+                refreshToken,
+                user,
             );
-
-            /**
-             * Load latest user
-             */
-            const me =
-                await authService.me();
-
-            useAuthStore
-                .getState()
-                .setUser(me.data);
 
             /**
              * Load wallet
@@ -74,23 +79,17 @@ export default function LoginForm() {
                 .getState()
                 .setWallet(wallet.data);
 
-            toast.success(
-                "Login successful."
-            );
+            toast.success("Login successful.");
 
-            if (me.data.role === "admin") {
-                router.push(
-                    ROUTES.ADMIN_DASHBOARD
-                );
-            } else {
-                router.push(
-                    ROUTES.DASHBOARD
-                );
-            }
+            router.push(
+                user.role === "admin"
+                    ? ROUTES.ADMIN_DASHBOARD
+                    : ROUTES.DASHBOARD,
+            );
         } catch (error: any) {
             toast.error(
                 error?.response?.data?.message ??
-                    "Login failed."
+                    "Login failed.",
             );
         } finally {
             setLoading(false);
@@ -98,7 +97,10 @@ export default function LoginForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 p-6 flex flex-col gap-2">
+        <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-5 p-6 flex flex-col gap-2"
+        >
             <TextField
                 label="Phone Number"
                 type="tel"
@@ -108,31 +110,17 @@ export default function LoginForm() {
                 {...register("phone")}
             />
 
-            <div className="mb-4">
-                <PasswordField
-                    label="Password"
-                    placeholder="Enter your password"
-                    error={errors.password?.message}
-                    {...register("password")}
-                />
-            </div>
+            <PasswordField
+                label="Password"
+                placeholder="Enter your password"
+                error={errors.password?.message}
+                {...register("password")}
+            />
 
-            {/* <div className="flex items-center justify-between">
-                <label className="flex items-center gap-2">
-                    <input
-                        type="checkbox"
-                        {...register("rememberMe")}
-                        className="h-4 w-4 rounded border-slate-300 text-yellow-600"
-                    />
-
-                    <span className="text-[12px] text-slate-600">
-                        Remember me
-                    </span>
-
-                </label>
-            </div> */}
-
-            <SubmitButton loading={loading} loadingText="Logging in...">
+            <SubmitButton
+                loading={loading}
+                loadingText="Logging in..."
+            >
                 Log In
             </SubmitButton>
 

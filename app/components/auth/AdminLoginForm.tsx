@@ -21,6 +21,7 @@ import SubmitButton from "../ui/SubmitButton";
 
 export default function AdminLoginForm() {
     const router = useRouter();
+
     const login = useAuthStore((state) => state.login);
 
     const [loading, setLoading] = useState(false);
@@ -37,25 +38,45 @@ export default function AdminLoginForm() {
         },
     });
 
-    const onSubmit = async (values: AdminLoginFormData) => {
+    const onSubmit = async (
+        values: AdminLoginFormData,
+    ) => {
         try {
             setLoading(true);
 
-            const response = await authService.adminLogin(values);
+            const response =
+                await authService.adminLogin(values);
 
+            /**
+             * Save tokens + user
+             */
             login(
                 response.data.accessToken,
-                response.data.refreshToken
+                response.data.refreshToken,
+                response.data.user,
             );
 
-            const me = await authService.me();
-            useAuthStore.getState().setUser(me.data);
+            /**
+             * Refresh latest user profile
+             */
+            const me =
+                await authService.me();
 
-            toast.success("Welcome back, Admin");
-            router.push(ROUTES.ADMIN_DASHBOARD);
+            useAuthStore
+                .getState()
+                .setUser(me.data);
+
+            toast.success(
+                "Welcome back, Admin."
+            );
+
+            router.push(
+                ROUTES.ADMIN_DASHBOARD,
+            );
         } catch (error: any) {
             toast.error(
-                error?.response?.data?.message ?? "Login failed."
+                error?.response?.data?.message ??
+                    "Login failed.",
             );
         } finally {
             setLoading(false);
@@ -63,7 +84,10 @@ export default function AdminLoginForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+        <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-5"
+        >
             <TextField
                 label="Admin Email"
                 type="email"

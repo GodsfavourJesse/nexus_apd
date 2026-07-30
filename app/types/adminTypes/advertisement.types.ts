@@ -53,14 +53,6 @@ export interface CreateAdvertisementDto {
 
     buttonText?: string;
 
-    targetUrl: string;
-
-    category: string;
-
-    priority?: number;
-
-    status?: AdvertisementStatus;
-
     startDate?: string | null;
     endDate?: string | null;
 }
@@ -77,14 +69,6 @@ export interface UpdateAdvertisementDto {
     bannerUrl?: string | null;
 
     buttonText?: string;
-
-    targetUrl?: string;
-
-    category?: string;
-
-    priority?: number;
-
-    status?: AdvertisementStatus;
 
     startDate?: string | null;
     endDate?: string | null;

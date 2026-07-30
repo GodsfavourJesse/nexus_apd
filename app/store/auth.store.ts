@@ -9,7 +9,7 @@ import { User } from "../types/auth";
 interface AuthState {
     user: User | null;
 
-    accessToken: string | null;
+    accessToken: string |null;
 
     refreshToken: string | null;
 
@@ -19,20 +19,14 @@ interface AuthState {
 
     isUser: boolean;
 
-    /**
-     * Stores the authenticated user.
-     */
     setUser: (
         user: User | null,
     ) => void;
 
-    /**
-     * Stores only the tokens.
-     * User is loaded afterwards from /auth/me.
-     */
     login: (
         accessToken: string,
         refreshToken: string,
+        user: User,
     ) => void;
 
     logout: () => void;
@@ -54,12 +48,7 @@ export const useAuthStore =
 
                 isUser: false,
 
-                /**
-                 * Save authenticated user.
-                 */
-                setUser: (
-                    user,
-                ) =>
+                setUser: (user) =>
                     set({
                         user,
 
@@ -75,22 +64,20 @@ export const useAuthStore =
                             "user",
                     }),
 
-                /**
-                 * Save tokens only.
-                 */
                 login: (
                     accessToken,
                     refreshToken,
+                    user,
                 ) =>
                     set({
                         accessToken,
                         refreshToken,
+                        user,
                         isAuthenticated: true,
+                        isAdmin: user.role === "admin",
+                        isUser: user.role === "user",
                     }),
 
-                /**
-                 * Logout.
-                 */
                 logout: () =>
                     set({
                         user: null,

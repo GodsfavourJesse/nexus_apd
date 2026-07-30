@@ -31,7 +31,7 @@ export default function MembershipTierSlide({
                     <span
                         className={`
                             inline-flex items-center gap-2 rounded-full
-                            px-3 py-1 text-xs font-semibold
+                            px-3 py-1 text-[10px] md:text-xs font-semibold
                             ${
                                 tier.isCurrent
                                     ? "bg-blue-100 text-blue-700"
@@ -40,10 +40,10 @@ export default function MembershipTierSlide({
                         `}
                     >
                         {tier.isCurrent ? (
-                            <>
+                            <div className="text-[10px] flex gap-1">
                                 <CheckCircle2 size={14} />
                                 Current Membership
-                            </>
+                            </div>
                         ) : (
                             <>
                                 <Lock size={14} />
@@ -52,20 +52,22 @@ export default function MembershipTierSlide({
                         )}
                     </span>
 
-                    <h2 className="mt-4 text-2xl font-bold text-slate-900">
+                    <h2 className="mt-1 md:mt-4 text-[16px] md:text-2xl font-bold text-slate-900">
                         {tier.name}
                     </h2>
                 </div>
 
                 {!tier.isCurrent && tier.price !== undefined && (
                     <div className="text-right">
-                        <p className="text-xs text-slate-500">
+                        <p className="text-[10px] md:text-xs text-slate-500">
                             Membership Fee
                         </p>
 
-                        <p className="mt-1 text-2xl font-bold text-[#2B84E0]">
-                            {tier.currency ?? "NGN"}{" "}
-                            {tier.price.toLocaleString()}
+                        <p className="mt-1 text-[14px] md:text-2xl font-bold text-[#2B84E0]">
+                            {tier.currency ?? "NGN"}
+                            <span className="ml-1 md:ml-0">
+                                {tier.price.toLocaleString()}
+                            </span>
                         </p>
                     </div>
                 )}

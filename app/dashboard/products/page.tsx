@@ -11,7 +11,7 @@ export default function ProductsPage() {
     const { data: products = [], isLoading } = useProducts();
 
     return (
-        <div className="relative min-h-full bg-slate-50 pb-12">
+        <div className="relative overflow-x-hidden min-h-full bg-slate-50 pb-12">
             <div className="w-full h-60">
                 <ProductsHeader />
             </div>
