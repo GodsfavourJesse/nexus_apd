@@ -6,6 +6,7 @@ import {
     RegisterRequest,
     User,
 } from "../types/auth";
+  import Cookies from "js-cookie";
 
 import { api } from "./api";
 
@@ -54,6 +55,20 @@ class AuthService {
             success: boolean;
             data: User;
         }>("/auth/me");
+    }
+
+    // Remove all local authentication.
+    clearSession() {
+
+        Cookies.remove("accessToken");
+        Cookies.remove("refreshToken");
+
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+
+        sessionStorage.removeItem("accessToken");
+        sessionStorage.removeItem("refreshToken");
+
     }
 }
 

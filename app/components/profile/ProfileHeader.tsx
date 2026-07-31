@@ -23,8 +23,8 @@ export default function ProfileHeader({
         <div className="px-6 pb-10 pt-6 mb-2">
             <button
                 type="button"
-                onClick={() => router.push("/settings")}
-                className="text-white/90 transition hover:text-white"
+                onClick={() => router.push("/dashboard/settings")}
+                className="text-white/90 transition hover:text-white cursor-pointer"
             >
                 <Settings size={26} strokeWidth={1.8} />
             </button>
