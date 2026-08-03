@@ -11,19 +11,16 @@ import SettingsList from "@/app/components/profile/SettingsList";
 import UpgradeBanner from "@/app/components/profile/UpgradeBanner";
 import UserGuard from "@/app/guards/UserGuard";
 import { useCurrentUser } from "@/app/hooks/useCurrentUser";
-import { useAuthStore } from "@/app/store/auth.store";
 import { getReferralLink } from "@/app/utils/referral";
 
 export default function Profile() {
-    useCurrentUser();
+    const { user } = useCurrentUser();
 
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
         setMounted(true);
     }, []);
-
-    const user = useAuthStore((state) => state.user);
 
     if (!mounted) {
         return null;

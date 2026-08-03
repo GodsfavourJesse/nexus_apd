@@ -2,15 +2,13 @@ import { Settings } from "lucide-react";
 
 import NotifyBar from "@/app/components/dashboard/NotifyBar";
 import BalanceCard from "@/app/components/dashboard/BalanceCard";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface HeroProps {
     name?: string;
 }
 
 export default function Hero({ name = "Internship Member" }: HeroProps) {
-
-    const router = useRouter();
 
     return (
         <div className="relative overflow-hidden rounded-b-[40px] bg-[#FEC013] px-4 pb-8 pt-4">
@@ -38,14 +36,16 @@ export default function Hero({ name = "Internship Member" }: HeroProps) {
             </svg>
 
             <div className="relative z-10 flex flex-col gap-5 px-3">
-                <button
-                    type="button"
-                    onClick={() => router.push("/dashboard/settings")}
+                <Link
+                    href="/dashboard/settings"
                     aria-label="Settings"
                     className="w-fit text-white/90 transition hover:text-white cursor-pointer"
                 >
-                    <Settings size={26} strokeWidth={1.75} />
-                </button>
+                    <Settings
+                        size={26}
+                        strokeWidth={1.75}
+                    />
+                </Link>
 
                 <NotifyBar />
 

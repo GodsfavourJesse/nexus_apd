@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
 import axiosInstance from "@/app/lib/axios";
 import { useAuthStore } from "@/app/store/auth.store";
 
@@ -9,61 +10,111 @@ export default function AuthProvider({
 }: {
     children: React.ReactNode;
 }) {
+
     const {
-        refreshToken,
+        accessToken,
+        user,
         setUser,
         logout,
     } = useAuthStore();
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] =
+        useState(true);
 
     useEffect(() => {
-        async function restoreSession() {
-            if (!refreshToken) {
-                setLoading(false);
+
+        let mounted = true;
+
+        async function initialize() {
+
+            /**
+             * No authenticated session.
+             */
+            if (!accessToken) {
+
+                if (mounted) {
+                    setLoading(false);
+                }
+
                 return;
+
+            }
+
+            /**
+             * User already loaded.
+             */
+            if (user) {
+
+                if (mounted) {
+                    setLoading(false);
+                }
+
+                return;
+
             }
 
             try {
-                const refreshResponse =
-                    await axiosInstance.post(
-                        "/auth/refresh",
-                        {
-                            refreshToken,
-                        },
-                    );
 
-                const {
-                    accessToken,
-                    refreshToken: newRefreshToken,
-                } = refreshResponse.data.data;
-
-                useAuthStore
-                    .getState()
-                    .login(
-                        accessToken,
-                        newRefreshToken,
-                    );
-
+                /**
+                 * If the access token has expired,
+                 * the Axios interceptor will refresh
+                 * it automatically before retrying
+                 * this request.
+                 */
                 const response =
                     await axiosInstance.get(
                         "/auth/me",
                     );
 
-                setUser(response.data.data);
+                if (mounted) {
+
+                    setUser(
+                        response.data.data,
+                    );
+
+                }
+
             } catch {
-                logout();
+
+                if (mounted) {
+
+                    logout();
+
+                }
+
             } finally {
-                setLoading(false);
+
+                if (mounted) {
+
+                    setLoading(false);
+
+                }
+
             }
+
         }
 
-        restoreSession();
-    }, [refreshToken, logout, setUser]);
+        initialize();
+
+        return () => {
+
+            mounted = false;
+
+        };
+
+    }, [
+        accessToken,
+        user,
+        setUser,
+        logout,
+    ]);
 
     if (loading) {
+
         return null;
+
     }
 
     return children;
+
 }

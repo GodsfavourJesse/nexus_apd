@@ -1,11 +1,10 @@
 "use client";
 
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
-import { authService } from "@/app/services/auth.service";
-import { useAuthStore } from "@/app/store/auth.store";
 import { ROUTES } from "@/app/constants/routes";
+import { useAuthStore } from "@/app/store/auth.store";
 
 interface Props {
     children: ReactNode;
@@ -22,120 +21,54 @@ export default function AdminGuard({
     const {
         user,
         isAuthenticated,
-        setUser,
-        logout,
     } = useAuthStore();
-
-    const [loading, setLoading] =
-        useState(true);
 
     useEffect(() => {
 
-        let mounted = true;
+        /**
+         * Wait until AuthProvider
+         * finishes restoring the session.
+         */
+        if (!isAuthenticated) {
 
-        async function verify() {
+            router.replace(
+                `${ROUTES.ADMIN_LOGIN}?redirect=${encodeURIComponent(
+                    pathname,
+                )}`,
+            );
 
-            try {
-
-                /**
-                 * Already authenticated
-                 * from Zustand.
-                 */
-                if (
-                    isAuthenticated &&
-                    user
-                ) {
-
-                    if (
-                        user.role !==
-                        "admin"
-                    ) {
-
-                        router.replace(
-                            ROUTES.DASHBOARD,
-                        );
-
-                        return;
-                    }
-
-                    setLoading(false);
-
-                    return;
-                }
-
-                /**
-                 * Refresh or first load.
-                 * Verify from backend.
-                 */
-                const response =
-                    await authService.me();
-
-                const currentUser =
-                    response.data;
-
-                /**
-                 * Update store.
-                 */
-                setUser(
-                    currentUser,
-                );
-
-                if (
-                    currentUser.role !==
-                    "admin"
-                ) {
-
-                    router.replace(
-                        ROUTES.DASHBOARD,
-                    );
-
-                    return;
-                }
-
-            } catch {
-
-                logout();
-
-                router.replace(
-                    `${ROUTES.ADMIN_LOGIN}?redirect=${encodeURIComponent(
-                        pathname,
-                    )}`,
-                );
-
-                return;
-
-            } finally {
-
-                if (mounted) {
-
-                    setLoading(
-                        false,
-                    );
-
-                }
-
-            }
+            return;
 
         }
 
-        verify();
+        /**
+         * Authenticated but not an admin.
+         */
+        if (
+            user &&
+            user.role !== "admin"
+        ) {
 
-        return () => {
+            router.replace(
+                ROUTES.DASHBOARD,
+            );
 
-            mounted = false;
-
-        };
+        }
 
     }, [
+        isAuthenticated,
+        user,
         pathname,
         router,
-        user,
-        isAuthenticated,
-        logout,
-        setUser,
     ]);
 
-    if (loading) {
+    /**
+     * AuthProvider is still loading the user.
+     */
+    if (
+        isAuthenticated &&
+        !user
+    ) {
 
         return (
 
@@ -171,7 +104,7 @@ export default function AdminGuard({
                             font-semibold
                         "
                     >
-                        Verifying Administrator
+                        Loading...
                     </h2>
 
                     <p
@@ -181,7 +114,7 @@ export default function AdminGuard({
                             text-gray-500
                         "
                     >
-                        Please wait...
+                        Verifying administrator session...
                     </p>
 
                 </div>
@@ -203,4 +136,5 @@ export default function AdminGuard({
     }
 
     return <>{children}</>;
+
 }

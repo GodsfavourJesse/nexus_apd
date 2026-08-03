@@ -15,7 +15,7 @@ import { toast } from "sonner";
 
 import { useQueryClient } from "@tanstack/react-query";
 
-import { authService } from "@/app/services/auth.service";
+import { authService } from "@/app/services/clientServices/auth.service";
 
 interface Props {
     open: boolean;

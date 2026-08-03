@@ -1,8 +1,8 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { Settings, Pencil } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface ProfileHeaderProps {
     // name: string;
@@ -17,18 +17,19 @@ export default function ProfileHeader({
     avatarUrl,
     country,
 }: ProfileHeaderProps) {
-    const router = useRouter();
 
     return (
         <div className="px-6 pb-10 pt-6 mb-2">
-            <button
-                type="button"
-                onClick={() => router.push("/dashboard/settings")}
-                className="text-white/90 transition hover:text-white cursor-pointer"
+            <Link
+                href="/dashboard/settings"
+                aria-label="Settings"
+                className="w-fit text-white/90 transition hover:text-white cursor-pointer"
             >
-                <Settings size={26} strokeWidth={1.8} />
-            </button>
-
+                <Settings
+                    size={26}
+                    strokeWidth={1.75}
+                />
+            </Link>
             <div className="mt-8 flex items-center gap-4">
                 <div className="relative h-16 w-16 shrink-0">
                     <div className="h-full w-full overflow-hidden rounded-full border-2 border-white/60 bg-white">

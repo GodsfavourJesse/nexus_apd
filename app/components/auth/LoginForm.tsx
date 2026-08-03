@@ -12,7 +12,7 @@ import {
     LoginFormData,
     loginSchema,
 } from "@/app/schema/auth.schema";
-import { authService } from "@/app/services/auth.service";
+import { authService } from "@/app/services/clientServices/auth.service";
 import { ROUTES } from "@/app/constants/routes";
 
 import TextField from "../ui/TextField";
@@ -20,7 +20,7 @@ import PasswordField from "../ui/PasswordField";
 import SubmitButton from "../ui/SubmitButton";
 import LoginFormFooter from "../ui/LoginFooter";
 
-import { walletService } from "@/app/services/wallet.service";
+import { walletService } from "@/app/services/clientServices/wallet.service";
 import { useWalletStore } from "@/app/store/wallet.store";
 
 export default function LoginForm() {
@@ -66,8 +66,14 @@ export default function LoginForm() {
             login(
                 accessToken,
                 refreshToken,
-                // user,
+                user,
             );
+
+            // const me = await authService.me();
+
+            // useAuthStore
+            //     .getState()
+            //     .setUser(me.data);
 
             /**
              * Load wallet

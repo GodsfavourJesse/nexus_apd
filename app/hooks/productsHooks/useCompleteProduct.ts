@@ -1,96 +1,96 @@
-"use client";
+// "use client";
 
-import {
-    useMutation,
-    useQueryClient,
-} from "@tanstack/react-query";
+// import {
+//     useMutation,
+//     useQueryClient,
+// } from "@tanstack/react-query";
 
-import { toast } from "sonner";
+// import { toast } from "sonner";
 
-import { productService } from "@/app/services/product.service";
+// import { productService } from "@/app/services/clientServices/product.service";
 
-export function useCompleteProduct() {
+// export function useCompleteProduct() {
 
-    const queryClient =
-        useQueryClient();
+//     const queryClient =
+//         useQueryClient();
 
-    return useMutation({
+//     return useMutation({
 
-        mutationFn: (
-            productId: string,
-        ) =>
-            productService.completeProduct(
-                productId,
-            ),
+//         mutationFn: (
+//             productId: string,
+//         ) =>
+//             productService.completeProduct(
+//                 productId,
+//             ),
 
-        onSuccess: (_, productId) => {
+//         onSuccess: (_, productId) => {
 
-            toast.success(
-                "Task completed successfully.",
-            );
+//             toast.success(
+//                 "Task completed successfully.",
+//             );
 
-            /**
-             * Refresh available products.
-             * The completed product will disappear.
-             */
-            queryClient.invalidateQueries({
-                queryKey: ["products"],
-            });
+//             /**
+//              * Refresh available products.
+//              * The completed product will disappear.
+//              */
+//             queryClient.invalidateQueries({
+//                 queryKey: ["products"],
+//             });
 
-            /**
-             * Refresh product details.
-             */
-            queryClient.invalidateQueries({
-                queryKey: [
-                    "product",
-                    productId,
-                ],
-            });
+//             /**
+//              * Refresh product details.
+//              */
+//             queryClient.invalidateQueries({
+//                 queryKey: [
+//                     "product",
+//                     productId,
+//                 ],
+//             });
 
-            /**
-             * Refresh completion status.
-             */
-            queryClient.invalidateQueries({
-                queryKey: [
-                    "completed-advertisement",
-                    productId,
-                ],
-            });
+//             /**
+//              * Refresh completion status.
+//              */
+//             queryClient.invalidateQueries({
+//                 queryKey: [
+//                     "completed-advertisement",
+//                     productId,
+//                 ],
+//             });
 
-            /**
-             * Refresh product statistics.
-             */
-            queryClient.invalidateQueries({
-                queryKey: ["product-dashboard"],
-            });
+//             /**
+//              * Refresh product statistics.
+//              */
+//             queryClient.invalidateQueries({
+//                 queryKey: ["product-dashboard"],
+//             });
 
-            /**
-             * Refresh wallet.
-             */
-            queryClient.invalidateQueries({
-                queryKey: ["wallet"],
-            });
+//             /**
+//              * Refresh wallet.
+//              */
+//             queryClient.invalidateQueries({
+//                 queryKey: ["wallet"],
+//             });
 
-            /**
-             * Refresh transaction history.
-             */
-            queryClient.invalidateQueries({
-                queryKey: ["transactions"],
-            });
+//             /**
+//              * Refresh transaction history.
+//              */
+//             queryClient.invalidateQueries({
+//                 queryKey: ["transactions"],
+//             });
 
-        },
+//         },
 
-        onError: (
-            error: any,
-        ) => {
+//         onError: (
+//             error: any,
+//         ) => {
 
-            toast.error(
-                error?.response?.data?.message ??
-                "Unable to complete task.",
-            );
+//             toast.error(
+//                 error?.response?.data?.message ??
+//                 "Unable to complete task.",
+//             );
 
-        },
+//         },
 
-    });
+//     });
 
-}
+// }

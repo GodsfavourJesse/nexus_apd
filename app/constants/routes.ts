@@ -3,7 +3,7 @@ export const ROUTES = {
 
     PRODUCTS: "/products",
 
-    ORDERS: "/dashboard/products",
+    ORDERS: "/dashboard/order",
 
     MESSAGES: "/messages",
 

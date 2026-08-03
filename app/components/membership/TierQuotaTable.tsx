@@ -1,4 +1,4 @@
-import { OrderQuota } from "@/app/types/memebership.types";
+import { OrderQuota } from "@/app/types/clientTypes/memebership.types";
 import { CalendarDays, ShoppingBag, Wallet } from "lucide-react";
 
 export default function TierQuotaTable({

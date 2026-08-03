@@ -1,23 +1,23 @@
-"use client";
+// "use client";
 
-import { useQuery } from "@tanstack/react-query";
+// import { useQuery } from "@tanstack/react-query";
 
-import { productService } from "@/app/services/product.service";
+// import { productService } from "@/app/services/clientServices/product.service";
 
-export function useProduct(
-    productId?: string,
-) {
+// export function useProduct(
+//     productId?: string,
+// ) {
 
-    return useQuery({
-        queryKey: [
-            "product",
-            productId,
-        ],
-        queryFn: () =>
-            productService.getProduct(
-                productId!,
-            ),
-        enabled: !!productId,
-    });
+//     return useQuery({
+//         queryKey: [
+//             "product",
+//             productId,
+//         ],
+//         queryFn: () =>
+//             productService.getProduct(
+//                 productId!,
+//             ),
+//         enabled: !!productId,
+//     });
 
-}
+// }

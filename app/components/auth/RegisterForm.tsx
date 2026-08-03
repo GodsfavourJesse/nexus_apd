@@ -18,7 +18,7 @@ import {
     RegisterFormData,
     registerSchema,
 } from "@/app/schema/auth.schema";
-import { authService } from "@/app/services/auth.service";
+import { authService } from "@/app/services/clientServices/auth.service";
 import { ROUTES } from "@/app/constants/routes";
 
 import TextField from "../ui/TextField";
@@ -26,7 +26,7 @@ import PasswordField from "../ui/PasswordField";
 import SubmitButton from "../ui/SubmitButton";
 import RegisterFormFooter from "../ui/RegisterFormFooter";
 
-import { walletService } from "@/app/services/wallet.service";
+import { walletService } from "@/app/services/clientServices/wallet.service";
 import { useWalletStore } from "@/app/store/wallet.store";
 
 export default function RegisterForm() {

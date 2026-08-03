@@ -11,6 +11,7 @@ import {
 
 import AvatarBadge from "@/app/components/dashboard/AvatarBadge";
 import { useWalletStore } from "@/app/store/wallet.store";
+import Link from "next/link";
 export default function BalanceCard() {
     const [visible, setVisible] = useState(false);
 
@@ -102,8 +103,8 @@ export default function BalanceCard() {
 
             {/* Actions */}
             <div className="relative mt-5 flex items-center gap-3 border-t border-white/40 pt-4">
-                <button
-                    type="button"
+                <Link
+                    href="/dashboard/wallet/deposit"
                     className="
                         flex flex-1
                         items-center
@@ -121,11 +122,11 @@ export default function BalanceCard() {
                     "
                 >
                     <Plus size={16} />
-                    Deposit
-                </button>
+                    Deposit                        
+                </Link>
 
-                <button
-                    type="button"
+                <Link
+                    href="/dashboard/wallet/withdraw"
                     className="
                         flex flex-1
                         items-center
@@ -145,7 +146,8 @@ export default function BalanceCard() {
                 >
                     <ArrowDownToLine size={16} />
                     Withdraw
-                </button>
+                </Link>
+
             </div>
         </div>
     );

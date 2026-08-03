@@ -4,7 +4,7 @@ import {
     Wallet,
 } from "lucide-react";
 
-import { OrderCommission } from "@/app/types/memebership.types";
+import { OrderCommission } from "@/app/types/clientTypes/memebership.types";
 
 export default function TierOrderCommissionTable({
     rows,

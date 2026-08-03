@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
 import { toast } from "sonner";
 
-import { authService } from "@/app/services/auth.service";
+import { authService } from "@/app/services/clientServices/auth.service";
 import { useAuthStore } from "@/app/store/auth.store";
 import { useWalletStore } from "@/app/store/wallet.store";
 import { ROUTES } from "@/app/constants/routes";

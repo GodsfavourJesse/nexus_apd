@@ -1,4 +1,4 @@
-import { MembershipTier } from "../types/memebership.types";
+import { MembershipTier } from "../types/clientTypes/memebership.types";
 
 export const TIERS: MembershipTier[] = [
     {

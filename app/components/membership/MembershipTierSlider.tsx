@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import TierBadge from "./TierBadge";
 import MembershipTierSlide from "./MembershipTierSlide";
 
-import { MembershipTier } from "@/app/types/memebership.types";
+import { MembershipTier } from "@/app/types/clientTypes/memebership.types";
 
 interface MembershipTierSliderProps {
     tiers: MembershipTier[];

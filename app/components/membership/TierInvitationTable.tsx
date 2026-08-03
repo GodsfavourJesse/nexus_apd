@@ -4,7 +4,7 @@ import {
     Wallet,
 } from "lucide-react";
 
-import { InvitationCommission } from "@/app/types/memebership.types";
+import { InvitationCommission } from "@/app/types/clientTypes/memebership.types";
 
 export default function TierInvitationTable({
     rows,

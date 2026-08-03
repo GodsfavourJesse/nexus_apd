@@ -24,20 +24,44 @@ const axiosInstance = axios.create({
 });
 
 /**
+ * Dedicated client for refreshing tokens.
+ * This client has NO interceptors attached,
+ * preventing infinite refresh loops.
+ */
+const refreshClient = axios.create({
+    baseURL:
+        process.env.NEXT_PUBLIC_API_URL ??
+        "http://localhost:5000/api/v1",
+
+    headers: {
+        "Content-Type": "application/json",
+    },
+
+    withCredentials: true,
+});
+
+/**
+ * Ensures only ONE refresh request
+ * happens at a time.
+ */
+let refreshPromise: Promise<{
+    accessToken: string;
+    refreshToken: string;
+}> | null = null;
+
+/**
  * =====================================
  * Request Interceptor
  * =====================================
- * Attach access token to every request.
  */
 axiosInstance.interceptors.request.use(
     (config) => {
-
-        const token = useAuthStore
-            .getState()
-            .accessToken;
+        const token =
+            useAuthStore.getState().accessToken;
 
         if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
+            config.headers.Authorization =
+                `Bearer ${token}`;
         }
 
         return config;
@@ -49,8 +73,6 @@ axiosInstance.interceptors.request.use(
  * =====================================
  * Response Interceptor
  * =====================================
- * Automatically refresh expired access
- * tokens and retry the original request.
  */
 axiosInstance.interceptors.response.use(
     (response) => response,
@@ -59,14 +81,16 @@ axiosInstance.interceptors.response.use(
 
         const originalRequest =
             error.config as
-            | RetryRequestConfig
-            | undefined;
+                | RetryRequestConfig
+                | undefined;
 
         if (!originalRequest) {
             return Promise.reject(error);
         }
 
-        // Never try to refresh the refresh endpoint.
+        /**
+         * Never refresh the refresh endpoint.
+         */
         if (
             originalRequest.url?.includes(
                 "/auth/refresh",
@@ -93,42 +117,61 @@ axiosInstance.interceptors.response.use(
                     );
                 }
 
-                if (!auth.user) {
-                    throw new Error(
-                        "Missing authenticated user.",
-                    );
-                }
+                /**
+                 * If another request is already
+                 * refreshing, wait for it.
+                 */
+                if (!refreshPromise) {
 
-                const response =
-                    await axios.post(
-                        `${axiosInstance.defaults.baseURL}/auth/refresh`,
-                        {
-                            refreshToken:
-                                auth.refreshToken,
-                        },
-                    );
+                    refreshPromise =
+                        refreshClient
+                            .post(
+                                "/auth/refresh",
+                                {
+                                    refreshToken:
+                                        auth.refreshToken,
+                                },
+                            )
+                            .then((response) => {
+
+                                const {
+                                    accessToken,
+                                    refreshToken,
+                                } =
+                                    response.data.data;
+
+                                auth.login(
+                                    accessToken,
+                                    refreshToken,
+                                );
+
+                                return {
+                                    accessToken,
+                                    refreshToken,
+                                };
+
+                            })
+                            .finally(() => {
+
+                                refreshPromise =
+                                    null;
+
+                            });
+
+                }
 
                 const {
                     accessToken,
-                    refreshToken,
-                    // user,
-                } = response.data.data;
+                } =
+                    await refreshPromise;
 
-                // Update Zustand
-                auth.login(
-                    accessToken,
-                    refreshToken,
-                    // auth.user!,
-                );
-
-                // Retry original request
                 originalRequest.headers =
                     originalRequest.headers ??
                     new AxiosHeaders();
-                    
+
                 originalRequest.headers.set(
                     "Authorization",
-                        `Bearer ${accessToken}`,
+                    `Bearer ${accessToken}`,
                 );
 
                 return axiosInstance(
@@ -145,15 +188,20 @@ axiosInstance.interceptors.response.use(
                     typeof window !==
                     "undefined"
                 ) {
+
                     window.location.href =
                         ROUTES.LOGIN;
+
                 }
 
                 return Promise.reject(error);
+
             }
+
         }
 
         return Promise.reject(error);
+
     },
 );
 

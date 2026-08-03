@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import AdminGuard from "@/app/guards/AdminGuard";
-import { authService } from "@/app/services/auth.service";
+import { authService } from "@/app/services/clientServices/auth.service";
 import { getReferralLink } from "@/app/utils/referral";
 
 

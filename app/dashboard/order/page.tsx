@@ -1,57 +1,122 @@
 "use client";
 
-import OrderHeader from "@/app/components/order/OrderHeader";
+import EmptyOrders from "@/app/components/order/EmptyOrders";
+import OrderGrid from "@/app/components/order/OrderGrid";
+import OrdersHeader from "@/app/components/order/OrdersHeader";
+import OrderSkeleton from "@/app/components/order/OrderSkeleton";
 import OrderStatsCard from "@/app/components/order/OrderStatsCard";
-import ProductGrid from "@/app/components/order/ProductGrid";
 
-// Replace with a real fetch from your order/product service
-const PRODUCTS = [
-    {
-        id: "1",
-        name: "Cosco Kids Pronto Trend Booster Seat",
-        imageUrl: "/images/products/cosco-booster.png",
-        commission: "150",
-        quantity: "9999+",
-    },
-    {
-        id: "2",
-        name: "Holler The Glow Ritual Toner & Serum Duo",
-        imageUrl: "/images/products/holler-glow.png",
-        commission: "150",
-        quantity: "9999+",
-    },
-    {
-        id: "3",
-        name: "Maelove Forever Firm Peptide Neck Treatment",
-        imageUrl: "/images/products/maelove-firm.png",
-        commission: "150",
-        quantity: "9999+",
-    },
-    {
-        id: "4",
-        name: "InStyler 2 in 1 Hair Curling Iron",
-        imageUrl: "/images/products/instyler-curler.png",
-        commission: "150",
-        quantity: "9999+",
-    },
-];
+import { useTodayOrder } from "@/app/hooks/clientHooks/ordersHooks/useTodayOrder";
 
-export default function OrderPage() {
+export default function OrdersPage() {
+    const {
+        data: todayOrder,
+        isLoading,
+    } = useTodayOrder();
+
+    if (isLoading) {
+        return (
+            <div
+                className="
+                    relative
+                    min-h-full
+                    overflow-x-hidden
+                    bg-slate-50
+                    pb-12
+                "
+            >
+                <div className="h-60 w-full">
+                    <OrdersHeader />
+                </div>
+
+                <main className="mt-20 px-4">
+                    <OrderSkeleton />
+                </main>
+            </div>
+        );
+    }
+
+    if (!todayOrder) {
+        return (
+            <div
+                className="
+                    relative
+                    min-h-full
+                    overflow-x-hidden
+                    bg-slate-50
+                    pb-12
+                "
+            >
+                <div className="h-60 w-full">
+                    <OrdersHeader />
+                </div>
+
+                <main className="mt-6 px-4">
+                    <EmptyOrders state="NO_TASKS" />
+                </main>
+            </div>
+        );
+    }
+
+    const showStats =
+        todayOrder.state !== "NO_TASKS";
+
+    const showOrders =
+        todayOrder.state === "AVAILABLE";
+
     return (
-        <main className="flex min-h-full flex-col bg-slate-50 pb-10">
-            <OrderHeader />
+        <div
+            className="
+                relative
+                min-h-full
+                overflow-x-hidden
+                bg-slate-50
+                pb-12
+            "
+        >
+            <div className="h-60 w-full">
+                <OrdersHeader />
+            </div>
 
-            <OrderStatsCard
-                todaysEarnings="0"
-                remainingCount={4}
-                totalCount={4}
-                completedCount={0}
-            />
+            {showStats && (
+                <div
+                    className="
+                        absolute
+                        top-30
+                        z-30
+                        w-full
+                    "
+                >
+                    <OrderStatsCard
+                        todaysEarnings={Number(todayOrder.rewardEarned)}
+                        remaining={Math.max(
+                            todayOrder.requiredTasks -
+                                todayOrder.completedTasks,
+                            0,
+                        )}
+                        totalTasks={todayOrder.requiredTasks}
+                        completedTasks={todayOrder.completedTasks}
+                    />
+                </div>
+            )}
 
-            <ProductGrid
-                products={PRODUCTS}
-                onAdd={(id) => console.log("Add product", id)}
-            />
-        </main>
+            <main
+                className={
+                    showStats
+                        ? "mt-20 px-4"
+                        : "mt-6 px-4"
+                }
+            >
+                {showOrders ? (
+                    <OrderGrid
+                        items={todayOrder.items}
+                    />
+                ) : (
+                    <EmptyOrders
+                        state={todayOrder.state}
+                    />
+                )}
+            </main>
+        </div>
     );
 }

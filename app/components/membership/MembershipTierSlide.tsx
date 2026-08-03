@@ -3,7 +3,7 @@ import TierInvitationTable from "./TierInvitationTable";
 import TierOrderCommissionTable from "./TierOrderCommissionTable";
 import { Lock, CheckCircle2 } from "lucide-react";
 
-import { MembershipTier } from "@/app/types/memebership.types";
+import { MembershipTier } from "@/app/types/clientTypes/memebership.types";
 
 interface MembershipTierSlideProps {
     tier: MembershipTier;

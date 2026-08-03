@@ -12,7 +12,7 @@ import {
     AdminLoginFormData,
     adminLoginSchema,
 } from "@/app/schema/auth.schema";
-import { authService } from "@/app/services/auth.service";
+import { authService } from "@/app/services/clientServices/auth.service";
 import { useAuthStore } from "@/app/store/auth.store";
 import { ROUTES } from "@/app/constants/routes";
 import TextField from "../ui/TextField";
@@ -53,7 +53,7 @@ export default function AdminLoginForm() {
             login(
                 response.data.accessToken,
                 response.data.refreshToken,
-                // response.data.user,
+                response.data.user,
             );
 
             /**
