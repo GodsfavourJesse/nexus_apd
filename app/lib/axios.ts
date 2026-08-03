@@ -140,9 +140,14 @@ axiosInstance.interceptors.response.use(
                                 } =
                                     response.data.data;
 
+                                if (!auth.user) {
+                                    throw new Error("Missing authenticated user.");
+                                }
+
                                 auth.login(
                                     accessToken,
                                     refreshToken,
+                                    auth.user,
                                 );
 
                                 return {
