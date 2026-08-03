@@ -5,8 +5,8 @@ import { format } from "date-fns";
 import { Copy } from "lucide-react";
 import { DepositStatusBadge } from "./DepositStatusBadge";
 import { DepositReceiptPreview } from "./DepositReceiptPreview";
-import { DepositActions } from "./DepositActions";
 import { AdminDeposit } from "@/app/types/adminTypes/adminDeposit.types";
+import DepositActions from "./DepositActions";
 
 export const depositTableColumns: ColumnDef<AdminDeposit>[] = [
 
