@@ -107,7 +107,7 @@ export default function RegisterForm() {
             login(
                 accessToken,
                 refreshToken,
-                // user,
+                user,
             );
 
             /**
