@@ -3,7 +3,7 @@
 import { Transaction } from "@/app/types/clientTypes/transaction.types";
 import TransactionLoading from "./TransactionLoading";
 import TransactionPageEmpty from "./TransactionPageEmpty";
-import TransactionItem from "./TransactionItem";
+import TransactionItem from "./TransactionsItem";
 
 interface Props {
     transactions?: Transaction[];
