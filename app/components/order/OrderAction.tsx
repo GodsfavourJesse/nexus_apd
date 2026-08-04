@@ -57,7 +57,7 @@ export default function OrderAction({
                     setTimeout(() => {
 
                         router.push(
-                            "/dashboard/orders",
+                            "/dashboard/order",
                         );
 
                     }, 1200);
