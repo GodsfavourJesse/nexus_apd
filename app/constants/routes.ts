@@ -9,7 +9,9 @@ export const ROUTES = {
 
     // REFERRALS: "/referrals",
 
-    WALLET: "/wallet",
+    WALLET: "/dashboard/wallet",
+
+    TRANSACTIONS: "/dashboard/transactions",
 
     PROFILE: "/dashboard/profile",
     

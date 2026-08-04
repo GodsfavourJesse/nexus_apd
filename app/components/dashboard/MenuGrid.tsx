@@ -9,6 +9,7 @@ import FinancialProductsIcon from "@/app/components/icons/menu/FinancialProducts
 import CompanyActivityIcon from "@/app/components/icons/menu/CompanyActivityIcon";
 import LuckyCardsIcon from "@/app/components/icons/menu/LuckyCardsIcon";
 import MembershipWelfareIcon from "@/app/components/icons/menu/MembershipWelfareIcon";
+import { ROUTES } from "@/app/constants/routes";
 
 interface MenuItem {
     icon: ComponentType;
@@ -21,13 +22,13 @@ const MENU_ITEMS: MenuItem[] = [
     {
         icon: CompanyIcon,
         line1: "Company",
-        href: "/company",
+        href: ROUTES.ABOUT,
     },
     {
         icon: MemberBenefitsIcon,
         line1: "Member",
         line2: "benefits",
-        href: "/member-benefits",
+        href: ROUTES.MEMBERS,
     },
     {
         icon: TeamExpansionIcon,

@@ -28,6 +28,21 @@ export interface Transaction {
     updatedAt: string;
 }
 
+export interface TransactionPagination {
+
+    page: number;
+
+    limit: number;
+
+    total: number;
+
+    totalPages: number;
+
+    hasNextPage: boolean;
+
+    hasPreviousPage: boolean;
+}
+
 export interface TransactionResponse {
     success: boolean;
 
@@ -36,6 +51,6 @@ export interface TransactionResponse {
 
 export interface TransactionsResponse {
     success: boolean;
-
     data: Transaction[];
+    pagination: TransactionPagination;
 }

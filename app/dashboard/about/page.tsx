@@ -15,7 +15,7 @@ const sections = [
         icon: Building2,
         title: "Who We Are",
         content:
-            "PXES was founded in 2025 and is headquartered in Melbourne, Australia. We specialize in precision online marketing services for global e-commerce platforms. Through partnerships with leading marketplaces such as Amazon, eBay and Walmart, we provide customized marketing solutions that increase traffic, improve conversion rates and drive sustainable business growth. Since our establishment, we have helped brands including Labubu and Aje strengthen their visibility and become leaders within their industries.",
+            "WICCO was founded in 2025 and is headquartered in Melbourne, Australia. We specialize in precision online marketing services for global e-commerce platforms. Through partnerships with leading marketplaces such as Amazon, eBay and Walmart, we provide customized marketing solutions that increase traffic, improve conversion rates and drive sustainable business growth. Since our establishment, we have helped brands including Labubu and Aje strengthen their visibility and become leaders within their industries.",
     },
     {
         icon: Globe,
@@ -27,13 +27,13 @@ const sections = [
         icon: TrendingUp,
         title: "Our Solution",
         content:
-            "PXES provides a one-stop digital marketing platform designed to accelerate order growth for online merchants. Through entrusted marketing campaigns, businesses can reduce customer acquisition costs, expand globally, improve product visibility and achieve long-term, sustainable sales growth.",
+            "WICCO provides a one-stop digital marketing platform designed to accelerate order growth for online merchants. Through entrusted marketing campaigns, businesses can reduce customer acquisition costs, expand globally, improve product visibility and achieve long-term, sustainable sales growth.",
     },
     {
         icon: Users,
         title: "How Members Earn",
         content:
-            "PXES members contribute by completing promotional product orders for merchants. Every completed task helps merchants increase sales performance while generating service revenue for the platform. Sixty percent of the platform's service income is distributed to participating members as rewards, creating a win-win ecosystem for merchants and users alike.",
+            "WICCO members contribute by completing promotional product orders for merchants. Every completed task helps merchants increase sales performance while generating service revenue for the platform. Sixty percent of the platform's service income is distributed to participating members as rewards, creating a win-win ecosystem for merchants and users alike.",
     },
 ];
 
@@ -127,7 +127,7 @@ export default function AboutCompany() {
                             />
 
                             <span className="text-xs font-semibold text-slate-900">
-                                About PXES
+                                About WICCO
                             </span>
                         </div>
 

@@ -1,36 +1,81 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
+
 import { transactionService } from "@/app/services/clientServices/transaction.service";
 import { transactionKeys } from "./transaction.keys";
-import { useTransactionStore } from "@/app/store/transaction.store";
+
+
+const TRANSACTIONS_LIMIT = 20;
+
 
 export function useTransactions() {
 
-    const setTransactions = useTransactionStore(
-        state => state.setTransactions,
-    );
+    const query =
+        useInfiniteQuery({
 
-    return useQuery({
-        queryKey: transactionKeys.list(),
+            queryKey:
+                transactionKeys.list(),
 
-        queryFn: async () => {
-            const transactions = await transactionService.getTransactions();
+            queryFn: async ({
+                pageParam = 1,
+            }) => {
 
-            setTransactions(
-                transactions,
-            );
+                return transactionService.getTransactions(
+                    pageParam,
+                    TRANSACTIONS_LIMIT,
+                );
 
-            return transactions;
+            },
 
-        },
 
-        staleTime: 30_000,
-        gcTime: 5 * 60 * 1000,
-        refetchOnMount: true,
-        refetchOnReconnect: true,
-        refetchOnWindowFocus: true,
+            initialPageParam: 1,
 
-    });
+
+            getNextPageParam: (
+                lastPage,
+            ) => {
+
+                if (
+                    !lastPage.pagination.hasNextPage
+                ) {
+                    return undefined;
+                }
+
+
+                return (
+                    lastPage.pagination.page + 1
+                );
+
+            },
+
+
+            staleTime: 30_000,
+
+            gcTime:
+                5 * 60 * 1000,
+
+            refetchOnMount: true,
+
+            refetchOnReconnect: true,
+
+            refetchOnWindowFocus: true,
+
+        });
+
+
+    const transactions =
+        query.data?.pages.flatMap(
+            page => page.data,
+        ) ?? [];
+
+
+    return {
+
+        ...query,
+
+        transactions,
+
+    };
 
 }

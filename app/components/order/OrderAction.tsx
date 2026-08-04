@@ -139,19 +139,17 @@ export default function OrderAction({
     return (
 
         <div
-            className="
-                sticky
-                bottom-0
-                z-20
-                border-t
-                border-slate-200/70
-                bg-white/90
-                px-4
-                pt-3
-                pb-[max(12px,env(safe-area-inset-bottom))]
-                backdrop-blur-xl
-            "
-        >
+    className="
+        shrink-0
+        border-t
+        border-slate-200/70
+        bg-white/90
+        px-4
+        pt-3
+        pb-[max(12px,env(safe-area-inset-bottom))]
+        backdrop-blur-xl
+    "
+>
 
             <button
                 type="button"

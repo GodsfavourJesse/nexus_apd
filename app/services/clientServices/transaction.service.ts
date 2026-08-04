@@ -6,16 +6,24 @@ import { Transaction, TransactionResponse,
 
 class TransactionService {
 
-    // Returns every transaction belonging to
-    // the authenticated user.
-    async getTransactions(): Promise<Transaction[]> {
+    // Returns paginated transaction belonging to the authenticated user.
+    async getTransactions(
+        page: number = 1,
+        limit: number = 20,
+    ): Promise<TransactionsResponse> {
 
         const response =
             await axiosInstance.get<TransactionsResponse>(
                 "/transactions",
+                {
+                    params: {
+                        page,
+                        limit,
+                    },
+                },
             );
 
-        return response.data.data;
+        return response.data;
     }
 
     // Returns one transaction by ID.

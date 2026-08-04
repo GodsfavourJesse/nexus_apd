@@ -20,7 +20,7 @@ const ITEMS: SettingsItem[] = [
     {
         icon: Wallet,
         label: "Transaction history",
-        href: "/transactions",
+        href: "/dashboard/transactions",
     },
     {
         icon: Award,

@@ -80,7 +80,7 @@ export default function AboutCompany() {
             ========================== */}
             <p className="text-[14px] leading-7 text-slate-600">
                 <span className="font-semibold text-slate-900">
-                    PXES
+                    WICCO
                 </span>{" "}
                 was founded in <strong>2025</strong> and is headquartered in
                 <strong> Melbourne, Australia</strong>. We specialize in
