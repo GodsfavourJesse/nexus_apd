@@ -146,9 +146,7 @@ axiosInstance.interceptors.response.use(
 
                                 auth.login(
                                     accessToken,
-                                    refreshToken,
-                                    auth.user,
-                                );
+                                    refreshToken,                                );
 
                                 return {
                                     accessToken,
