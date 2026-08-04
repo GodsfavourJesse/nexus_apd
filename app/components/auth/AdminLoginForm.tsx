@@ -53,18 +53,7 @@ export default function AdminLoginForm() {
             login(
                 response.data.accessToken,
                 response.data.refreshToken,
-                response.data.user,
             );
-
-            /**
-             * Refresh latest user profile
-             */
-            const me =
-                await authService.me();
-
-            useAuthStore
-                .getState()
-                .setUser(me.data);
 
             toast.success(
                 "Welcome back, Admin."

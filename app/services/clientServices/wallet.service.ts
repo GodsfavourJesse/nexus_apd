@@ -1,25 +1,38 @@
-import { WalletResponse } from "../../types/clientTypes/wallet.types";
-import { api } from "../api";
+import axiosInstance from "@/app/lib/axios";
+
+import {
+    Wallet,
+    WalletResponse,
+} from "@/app/types/clientTypes/wallet.types";
 
 class WalletService {
 
-    getWallet() {
-        return api.get<WalletResponse>("/wallet");
+    async getWallet(): Promise<Wallet> {
+
+        const response =
+            await axiosInstance.get<WalletResponse>(
+                "/wallet",
+            );
+
+        return response.data.data;
     }
 
-    getBalance() {
-        return api.get<{
-            success: boolean;
+    async refreshWallet(): Promise<Wallet> {
 
-            data: {
-                availableBalance: string;
-                heldBalance: string;
-                totalEarned: string;
-                totalDeposited: string;
-                totalWithdrawn: string;
-            };
-        }>("/wallet/balance");
+        return this.getWallet();
+
+    }
+
+    async getBalance() {
+
+        const response =
+            await axiosInstance.get(
+                "/wallet/balance",
+            );
+
+        return response.data.data;
     }
 }
 
-export const walletService = new WalletService();
+export const walletService =
+    new WalletService();

@@ -9,7 +9,7 @@ import { User } from "../types/clientTypes/auth";
 interface AuthState {
     user: User | null;
 
-    accessToken: string |null;
+    accessToken: string | null;
 
     refreshToken: string | null;
 
@@ -26,7 +26,6 @@ interface AuthState {
     login: (
         accessToken: string,
         refreshToken: string,
-        user: User,
     ) => void;
 
     logout: () => void;
@@ -36,6 +35,7 @@ export const useAuthStore =
     create<AuthState>()(
         persist(
             (set) => ({
+
                 user: null,
 
                 accessToken: null,
@@ -50,10 +50,8 @@ export const useAuthStore =
 
                 setUser: (user) =>
                     set({
-                        user,
 
-                        isAuthenticated:
-                            !!user,
+                        user,
 
                         isAdmin:
                             user?.role ===
@@ -62,24 +60,26 @@ export const useAuthStore =
                         isUser:
                             user?.role ===
                             "user",
+
                     }),
 
                 login: (
                     accessToken,
                     refreshToken,
-                    user,
                 ) =>
                     set({
+
                         accessToken,
+
                         refreshToken,
-                        user,
+
                         isAuthenticated: true,
-                        isAdmin: user.role === "admin",
-                        isUser: user.role === "user",
+
                     }),
 
                 logout: () =>
                     set({
+
                         user: null,
 
                         accessToken: null,
@@ -91,22 +91,20 @@ export const useAuthStore =
                         isAdmin: false,
 
                         isUser: false,
-                    }),
-            }),
 
+                    }),
+
+            }),
             {
+
                 name: "auth-storage",
 
                 storage:
                     createJSONStorage(
-                        () =>
-                            localStorage,
+                        () => localStorage,
                     ),
 
-                partialize: (
-                    state,
-                ) => ({
-                    user: state.user,
+                partialize: (state) => ({
 
                     accessToken:
                         state.accessToken,
@@ -117,12 +115,8 @@ export const useAuthStore =
                     isAuthenticated:
                         state.isAuthenticated,
 
-                    isAdmin:
-                        state.isAdmin,
-
-                    isUser:
-                        state.isUser,
                 }),
+
             },
         ),
     );

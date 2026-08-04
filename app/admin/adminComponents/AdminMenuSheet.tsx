@@ -17,6 +17,7 @@ import {
     Settings,
     LogOut,
     Film,
+    Coins,
 } from "lucide-react";
 
 import Cookies from "js-cookie";
@@ -49,6 +50,11 @@ const MANAGEMENT: MenuItem[] = [
         icon: BadgeDollarSign,
     },
     {
+        title:"Wallet",
+        href:"/admin/wallet",
+        icon:Wallet,
+    },
+    {
         title: "Withdrawal Requests",
         href: "/admin/withdrawals",
         icon: CreditCard,
@@ -56,6 +62,11 @@ const MANAGEMENT: MenuItem[] = [
 ];
 
 const BUSINESS: MenuItem[] = [
+    {
+        title: "Deposit Requests",
+        href: "/admin/deposits",
+        icon: Coins,
+    },
     {
         title: "Membership Plans",
         href: "/admin/membership-plans",

@@ -1,17 +1,14 @@
 "use client";
 
-import {
-    useMutation,
-    useQueryClient,
-} from "@tanstack/react-query";
-
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { orderService } from "@/app/services/clientServices/order.service";
 import { orderKeys } from "./order.keys";
+import { walletKeys } from "../walletHooks/wallet.keys";
+import { transactionKeys } from "../transactionHooks/transaction.keys";
 
 export function useCompleteOrderItem() {
 
-    const queryClient =
-        useQueryClient();
+    const queryClient = useQueryClient();
 
     return useMutation({
 
@@ -23,9 +20,9 @@ export function useCompleteOrderItem() {
             ),
 
         onSuccess: async (_, itemId) => {
-
             await Promise.all([
-
+                
+                // Orders
                 queryClient.invalidateQueries({
                     queryKey: orderKeys.today(),
                 }),
@@ -37,11 +34,17 @@ export function useCompleteOrderItem() {
                 queryClient.invalidateQueries({
                     queryKey: orderKeys.item(itemId),
                 }),
+                // Wallet
+                queryClient.invalidateQueries({
+                    queryKey: walletKeys.all,
+                }),
+                // Transactions
+                queryClient.invalidateQueries({
+                    queryKey: transactionKeys.all,
+                }),
 
             ]);
 
         },
-
     });
-
 }

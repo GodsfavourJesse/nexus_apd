@@ -10,14 +10,12 @@ import MenuGrid from "../components/dashboard/MenuGrid";
 import PromotedNotice from "../components/dashboard/PromotedNotice";
 import PromoCarousel from "../components/dashboard/PromoCarousel";
 import AboutCompany from "../components/dashboard/AboutCompany";
+import { useCurrentUser } from "../hooks/clientHooks/userHooks/useCurrentUser";
 
 
 export default function DashboardPage(){
 
-    const user =
-        useAuthStore(
-            state=>state.user
-        );
+    const { data: user } = useCurrentUser();
 
 
     const referralLink =

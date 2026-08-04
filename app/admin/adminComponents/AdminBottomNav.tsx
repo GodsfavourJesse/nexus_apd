@@ -8,6 +8,7 @@ import {
     Users,
     ClipboardList,
     Menu,
+    Wallet,
 } from "lucide-react";
 
 interface AdminBottomNavProps {
@@ -31,6 +32,11 @@ const NAV_ITEMS: NavItem[] = [
         label: "Users",
         href: "/admin/users",
         icon: Users,
+    },
+    {
+        label: "Wallet",
+        href:"/admin/wallet",
+        icon:Wallet,
     },
     {
         label: "Requests",

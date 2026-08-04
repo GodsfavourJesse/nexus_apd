@@ -49,18 +49,13 @@ export default function OrderAction({
             item.id,
             {
                 onSuccess: () => {
-
-                    setCompletionSuccess(
-                        true,
-                    );
+                    setCompletionSuccess(true);
 
                     setTimeout(() => {
-
-                        router.push(
+                        router.replace(
                             "/dashboard/order",
                         );
-
-                    }, 1200);
+                    }, 1000);
 
                 },
             },

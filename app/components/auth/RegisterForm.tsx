@@ -107,18 +107,7 @@ export default function RegisterForm() {
             login(
                 accessToken,
                 refreshToken,
-                user,
             );
-
-            /**
-             * Load wallet
-             */
-            const wallet =
-                await walletService.getWallet();
-
-            useWalletStore
-                .getState()
-                .setWallet(wallet.data);
 
             toast.success(
                 "Registration successful.",

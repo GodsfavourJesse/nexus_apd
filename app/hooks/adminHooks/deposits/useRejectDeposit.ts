@@ -25,24 +25,29 @@ export const useRejectDeposit = () => {
                 data,
             ),
 
-        onSuccess: () => {
-
+        onSuccess: (_, variables) => {
             toast.success(
                 "Deposit rejected successfully.",
             );
 
             queryClient.invalidateQueries({
-                queryKey: [
+                queryKey:[
                     "admin-deposits",
                 ],
             });
 
             queryClient.invalidateQueries({
-                queryKey: [
+                queryKey:[
                     "pending-admin-deposits",
                 ],
             });
 
+            queryClient.invalidateQueries({
+                queryKey:[
+                    "admin-deposit",
+                    variables.depositId,
+                ],
+            });
         },
 
         onError: (

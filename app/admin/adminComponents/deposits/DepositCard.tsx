@@ -1,13 +1,18 @@
 "use client";
 
-import Link from "next/link";
-import { format } from "date-fns";
-import { Building2, ChevronRight, Copy } from "lucide-react";
 import { useState } from "react";
+import { format } from "date-fns";
+import {
+    Building2,
+    ChevronRight,
+    Copy,
+} from "lucide-react";
 
 import { AdminDeposit } from "@/app/types/adminTypes/adminDeposit.types";
+
 import { DepositReceiptPreview } from "./DepositReceiptPreview";
 import { DepositStatusBadge } from "./DepositStatusBadge";
+import DepositActions from "./DepositActions";
 
 interface DepositCardProps {
     deposit: AdminDeposit;
@@ -62,17 +67,19 @@ export function DepositCard({
             tabIndex={0}
             onClick={() => onOpen?.(deposit)}
             onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
+
+                if (
+                    e.key === "Enter" ||
+                    e.key === " "
+                ) {
                     onOpen?.(deposit);
                 }
+
             }}
             className="
                 group
-                flex
                 w-full
                 cursor-pointer
-                items-start
-                gap-4
                 rounded-2xl
                 border
                 border-slate-200
@@ -88,220 +95,239 @@ export function DepositCard({
             "
         >
 
-            {/* Receipt */}
+            <div className="flex items-start gap-4">
 
-            <div
-                onClick={(event) => {
+                {/* Receipt */}
 
-                    event.preventDefault();
-                    event.stopPropagation();
+                <div
+                    onClick={(event) => {
 
-                }}
-                className="shrink-0"
-            >
+                        event.preventDefault();
+                        event.stopPropagation();
 
-                <DepositReceiptPreview
-                    receipt={deposit.paymentReceipt}
-                />
+                    }}
+                    className="shrink-0"
+                >
 
-            </div>
+                    <DepositReceiptPreview
+                        receipt={deposit.paymentReceipt}
+                    />
 
-            {/* Content */}
+                </div>
 
-            <div className="min-w-0 flex-1">
+                {/* Content */}
 
-                {/* Reference */}
+                <div className="min-w-0 flex-1">
 
-                <div className="flex items-start justify-between gap-3">
+                    {/* Header */}
 
-                    <div className="min-w-0">
+                    <div className="flex items-start justify-between gap-3">
+
+                        <div className="min-w-0">
+
+                            <div className="flex items-center gap-2">
+
+                                <h3
+                                    className="
+                                        truncate
+                                        text-sm
+                                        font-semibold
+                                        text-slate-900
+                                    "
+                                >
+                                    {deposit.reference}
+                                </h3>
+
+                                <button
+                                    type="button"
+                                    onClick={handleCopy}
+                                    className="
+                                        flex
+                                        h-7
+                                        w-7
+                                        items-center
+                                        justify-center
+                                        rounded-md
+                                        text-slate-400
+                                        transition
+                                        hover:bg-slate-100
+                                        hover:text-slate-700
+                                        active:scale-95
+                                    "
+                                >
+                                    <Copy size={14} />
+                                </button>
+
+                                {copied && (
+
+                                    <span
+                                        className="
+                                            text-xs
+                                            font-medium
+                                            text-emerald-600
+                                        "
+                                    >
+                                        Copied
+                                    </span>
+
+                                )}
+
+                            </div>
+
+                            <p
+                                className="
+                                    mt-1
+                                    truncate
+                                    text-xs
+                                    text-slate-500
+                                "
+                            >
+                                {deposit.user.email ??
+                                    "No Email"}
+
+                                {" • "}
+
+                                {deposit.user.phone}
+                            </p>
+
+                        </div>
 
                         <div className="flex items-center gap-2">
 
-                            <h3
+                            <DepositStatusBadge
+                                status={deposit.status}
+                            />
+
+                            <div
+                                onClick={(event) => {
+
+                                    event.preventDefault();
+                                    event.stopPropagation();
+
+                                }}
+                            >
+
+                                <DepositActions
+                                    deposit={deposit}
+                                    hideView
+                                />
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    {/* Amount */}
+
+                    <div className="mt-4 flex items-center justify-between">
+
+                        <div>
+
+                            <p
                                 className="
-                                    truncate
-                                    text-sm
-                                    font-semibold
+                                    text-2xl
+                                    font-bold
+                                    tracking-tight
                                     text-slate-900
                                 "
                             >
-                                {deposit.reference}
-                            </h3>
+                                ₦
+                                {amount.toLocaleString(
+                                    "en-NG",
+                                    {
+                                        minimumFractionDigits: 2,
+                                    },
+                                )}
+                            </p>
 
-                            <button
-                                type="button"
-                                onClick={handleCopy}
+                            <div
                                 className="
+                                    mt-1
                                     flex
-                                    h-7
-                                    w-7
                                     items-center
-                                    justify-center
-                                    rounded-md
-                                    text-slate-400
-                                    transition
-                                    hover:bg-slate-100
-                                    hover:text-slate-700
-                                    active:scale-95
+                                    gap-1
+                                    text-xs
+                                    text-slate-500
                                 "
-                                aria-label="Copy reference"
                             >
 
-                                <Copy
-                                    size={14}
+                                <Building2
+                                    size={13}
                                 />
 
-                            </button>
-
-                            {copied && (
-
-                                <span
-                                    className="
-                                        text-xs
-                                        font-medium
-                                        text-emerald-600
-                                    "
-                                >
-                                    Copied
+                                <span>
+                                    {deposit.bankName}
                                 </span>
 
-                            )}
+                            </div>
 
                         </div>
 
-                        <p
+                        <ChevronRight
+                            size={18}
                             className="
-                                mt-1
-                                truncate
-                                text-xs
-                                text-slate-500
+                                shrink-0
+                                text-slate-300
+                                transition-transform
+                                duration-200
+                                group-hover:translate-x-1
                             "
-                        >
-                            {deposit.user.email ??
-                                "No Email"}
-
-                            {" • "}
-
-                            {deposit.user.phone}
-                        </p>
+                        />
 
                     </div>
 
-                    <DepositStatusBadge
-                        status={deposit.status}
-                    />
+                    {/* Footer */}
 
-                </div>
-
-                {/* Amount */}
-
-                <div className="mt-4 flex items-center justify-between">
-
-                    <div>
-
-                        <p
-                            className="
-                                text-2xl
-                                font-bold
-                                tracking-tight
-                                text-slate-900
-                            "
-                        >
-                            ₦
-                            {amount.toLocaleString(
-                                "en-NG",
-                                {
-                                    minimumFractionDigits: 2,
-                                },
-                            )}
-                        </p>
-
-                        <div
-                            className="
-                                mt-1
-                                flex
-                                items-center
-                                gap-1
-                                text-xs
-                                text-slate-500
-                            "
-                        >
-
-                            <Building2
-                                size={13}
-                            />
-
-                            <span>
-                                {deposit.bankName}
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                    <ChevronRight
-                        size={18}
+                    <div
                         className="
-                            shrink-0
-                            text-slate-300
-                            transition-transform
-                            duration-200
-                            group-hover:translate-x-1
-                        "
-                    />
-
-                </div>
-
-                {/* Footer */}
-
-                <div
-                    className="
-                        mt-4
-                        flex
-                        items-center
-                        justify-between
-                        border-t
-                        border-slate-100
-                        pt-3
-                    "
-                >
-
-                    <span
-                        className="
-                            text-xs
-                            text-slate-400
+                            mt-4
+                            flex
+                            items-center
+                            justify-between
+                            border-t
+                            border-slate-100
+                            pt-3
                         "
                     >
-                        {format(
-                            new Date(
-                                deposit.createdAt,
-                            ),
-                            "MMM d, yyyy • h:mm a",
-                        )}
-                    </span>
-
-                    {deposit.user.membership && (
 
                         <span
                             className="
-                                rounded-full
-                                bg-slate-100
-                                px-3
-                                py-1
-                                text-[11px]
-                                font-medium
-                                text-slate-600
+                                text-xs
+                                text-slate-400
                             "
                         >
-                            {
-                                deposit.user
-                                    .membership
-                                    .name
-                            }
+                            {format(
+                                new Date(
+                                    deposit.createdAt,
+                                ),
+                                "MMM d, yyyy • h:mm a",
+                            )}
                         </span>
 
-                    )}
+                        {deposit.user.membership && (
+
+                            <span
+                                className="
+                                    rounded-full
+                                    bg-slate-100
+                                    px-3
+                                    py-1
+                                    text-[11px]
+                                    font-medium
+                                    text-slate-600
+                                "
+                            >
+                                {
+                                    deposit.user
+                                        .membership
+                                        .name
+                                }
+                            </span>
+
+                        )}
+
+                    </div>
 
                 </div>
 

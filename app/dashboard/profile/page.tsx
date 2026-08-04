@@ -10,11 +10,11 @@ import ReferralCard from "@/app/components/profile/ReferralCard";
 import SettingsList from "@/app/components/profile/SettingsList";
 import UpgradeBanner from "@/app/components/profile/UpgradeBanner";
 import UserGuard from "@/app/guards/UserGuard";
-import { useCurrentUser } from "@/app/hooks/useCurrentUser";
+import { useCurrentUser } from "@/app/hooks/clientHooks/userHooks/useCurrentUser";
 import { getReferralLink } from "@/app/utils/referral";
 
 export default function Profile() {
-    const { user } = useCurrentUser();
+    const { data: user } = useCurrentUser();
 
     const [mounted, setMounted] = useState(false);
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 
@@ -9,18 +10,13 @@ import { LoadingDeposits } from "../../adminComponents/deposits/LoadingDeposits"
 import { DepositReceiptPreview } from "../../adminComponents/deposits/DepositReceiptPreview";
 import { DepositDetailsCard } from "../../adminComponents/deposits/detailsComponents/DepositDetailsCard";
 import { DepositUserCard } from "../../adminComponents/deposits/detailsComponents/DepositUserCard";
-import { useState } from "react";
-import { DepositStatus } from "@/app/types/adminTypes/adminDeposit.types";
+
 import ApproveDepositDialog from "../../adminComponents/deposits/detailsComponents/ApproveDepositDialog";
 import RejectDepositDialog from "../../adminComponents/deposits/detailsComponents/RejectDepositDialog";
-import DepositActions from "../../adminComponents/deposits/DepositActions";
 
 export default function DepositDetailsPage() {
     const router = useRouter();
 
-    const [approveOpen, setApproveOpen] = useState(false);
-    const [rejectOpen, setRejectOpen] = useState(false);
-    
     const { depositId } = useParams<{
         depositId: string;
     }>();
@@ -30,6 +26,12 @@ export default function DepositDetailsPage() {
         isLoading,
     } = useAdminDeposit(depositId);
 
+    const [approveOpen, setApproveOpen] =
+        useState(false);
+
+    const [rejectOpen, setRejectOpen] =
+        useState(false);
+
     if (isLoading) {
         return (
             <div className="min-h-screen bg-slate-50 px-4 pt-[max(16px,env(safe-area-inset-top))]">
@@ -38,57 +40,128 @@ export default function DepositDetailsPage() {
         );
     }
 
-    console.log("Loading:", isLoading);
-    console.log("Deposit:", deposit);
-    console.log("Receipt:", deposit?.paymentReceipt);
-
     if (!deposit) {
         return (
-            <div className="p-10">
-                Deposit is undefined
+            <div className="flex min-h-screen items-center justify-center bg-slate-50">
+                <div className="rounded-xl bg-white p-8 shadow">
+                    <p className="text-slate-600">
+                        Deposit not found.
+                    </p>
+                </div>
             </div>
         );
     }
 
-    const canReview =
-        deposit &&
-        (
-            deposit.status === DepositStatus.PENDING ||
-            deposit.status === DepositStatus.UNDER_REVIEW
-        );
-
     return (
-        <div className="flex min-h-screen flex-col bg-slate-50">
-            <header className="sticky top-0 z-10 border-b border-slate-100 bg-white/85 backdrop-blur-xl">
-                <div className="relative flex h-11 items-center justify-center px-2 pt-[env(safe-area-inset-top)]">
-                    <button
-                        type="button"
-                        onClick={() => router.back()}
-                        className="absolute left-1 flex h-11 min-w-11 items-center px-1.5 text-blue-600 active:opacity-40"
-                    >
-                        <ChevronLeft size={26} />
-                    </button>
+        <>
+            <div className="flex min-h-screen flex-col bg-slate-50">
 
-                    <h1 className="text-[17px] font-semibold">
-                        Deposit Details
-                    </h1>
-                </div>
-            </header>
+                {/* Header */}
 
-            <div className="flex-1 space-y-4 px-4 pb-6 pt-4">
-                <DepositDetailsCard deposit={deposit} />
+                <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/90 backdrop-blur">
+                    <div className="relative flex h-14 items-center justify-center px-4">
 
-                <DepositUserCard user={deposit.user} />
+                        <button
+                            type="button"
+                            onClick={() => router.back()}
+                            className="
+                                absolute
+                                left-3
+                                flex
+                                h-10
+                                w-10
+                                items-center
+                                justify-center
+                                rounded-full
+                                text-blue-600
+                                transition
+                                hover:bg-slate-100
+                            "
+                        >
+                            <ChevronLeft size={24} />
+                        </button>
 
-                <div className="rounded-2xl border bg-white p-4">
-                    <p className="mb-3 text-sm text-slate-500">
-                        Payment Receipt
-                    </p>
+                        <h1 className="text-lg font-semibold text-slate-900">
+                            Deposit Details
+                        </h1>
 
-                    <DepositReceiptPreview
-                        receipt={deposit.paymentReceipt}
+                    </div>
+                </header>
+
+                {/* Content */}
+
+                <main className="flex-1 space-y-4 px-4 py-4 pb-28">
+
+                    <DepositDetailsCard
+                        deposit={deposit}
                     />
-                </div>
+
+                    <DepositUserCard
+                        user={deposit.user}
+                    />
+
+                    <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+
+                        <p className="mb-3 text-sm font-medium text-slate-500">
+                            Payment Receipt
+                        </p>
+
+                        <DepositReceiptPreview
+                            receipt={deposit.paymentReceipt}
+                        />
+
+                    </div>
+
+                </main>
+
+                {/* Bottom Action Bar */}
+
+                <footer className="sticky bottom-0 border-t border-slate-200 bg-white p-4 shadow-lg">
+
+                    <div className="grid grid-cols-2 gap-3">
+
+                        <button
+                            type="button"
+                            onClick={() => setRejectOpen(true)}
+                            className="
+                                rounded-xl
+                                bg-red-600
+                                px-4
+                                py-3
+                                text-sm
+                                font-semibold
+                                text-white
+                                transition
+                                hover:bg-red-700
+                                active:scale-[0.98]
+                            "
+                        >
+                            Reject Deposit
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={() => setApproveOpen(true)}
+                            className="
+                                rounded-xl
+                                bg-emerald-600
+                                px-4
+                                py-3
+                                text-sm
+                                font-semibold
+                                text-white
+                                transition
+                                hover:bg-emerald-700
+                                active:scale-[0.98]
+                            "
+                        >
+                            Approve Deposit
+                        </button>
+
+                    </div>
+
+                </footer>
+
             </div>
 
             <ApproveDepositDialog
@@ -102,15 +175,6 @@ export default function DepositDetailsPage() {
                 depositId={deposit.id}
                 onClose={() => setRejectOpen(false)}
             />
-
-            <div className="sticky bottom-0 border-t border-slate-200 bg-white p-4">
-                <div className="flex justify-end">
-                    <DepositActions
-                        deposit={deposit}
-                        hideView={true}
-                    />
-                </div>
-            </div>
-        </div>
+        </>
     );
 }
