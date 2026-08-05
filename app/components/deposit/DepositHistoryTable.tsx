@@ -1,29 +1,49 @@
 "use client";
 
-import { Deposit } from "@/app/types/clientTypes/deposit.types";
+import {
+    ArrowUpRight,
+    Building2,
+    CalendarDays,
+    Clock3,
+} from "lucide-react";
+import { format } from "date-fns";
 
+import { Deposit } from "@/app/types/clientTypes/deposit.types";
 
 interface DepositHistoryTableProps {
     deposits: Deposit[];
     loading?: boolean;
 }
 
-function statusClass(status: string) {
+function statusStyles(status: string) {
     switch (status) {
         case "approved":
-            return "bg-green-100 text-green-700";
+            return {
+                badge:
+                    "bg-emerald-50 text-emerald-700 border border-emerald-200",
+                dot: "bg-emerald-500",
+            };
 
         case "pending":
-            return "bg-yellow-100 text-yellow-700";
+            return {
+                badge:
+                    "bg-amber-50 text-amber-700 border border-amber-200",
+                dot: "bg-amber-500",
+            };
 
         case "declined":
-            return "bg-red-100 text-red-700";
-
-        case "cancelled":
-            return "bg-gray-100 text-gray-700";
+            return {
+                badge:
+                    "bg-red-50 text-red-700 border border-red-200",
+                dot: "bg-red-500",
+            };
 
         default:
-            return "bg-blue-100 text-blue-700";
+            return {
+                badge:
+                    "bg-slate-100 text-slate-700 border border-slate-200",
+                dot: "bg-slate-500",
+            };
     }
 }
 
@@ -33,118 +53,170 @@ export default function DepositHistoryTable({
 }: DepositHistoryTableProps) {
     if (loading) {
         return (
-            <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center">
-                <p className="text-slate-500">
-                    Loading deposits...
-                </p>
+            <div className="space-y-3">
+                {Array.from({ length: 6 }).map((_, index) => (
+                    <div
+                        key={index}
+                        className="animate-pulse rounded-2xl border border-slate-200 bg-white p-4"
+                    >
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <div className="h-3 w-24 rounded bg-slate-200" />
+                                <div className="mt-3 h-6 w-32 rounded bg-slate-200" />
+                            </div>
+
+                            <div className="h-7 w-20 rounded-full bg-slate-200" />
+                        </div>
+
+                        <div className="mt-4 h-px bg-slate-100" />
+
+                        <div className="mt-4 flex justify-between">
+                            <div className="h-3 w-24 rounded bg-slate-200" />
+                            <div className="h-3 w-20 rounded bg-slate-200" />
+                        </div>
+                    </div>
+                ))}
             </div>
         );
     }
 
     if (!deposits.length) {
         return (
-            <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-16 text-center">
+            <div className="rounded-3xl border border-dashed border-slate-300 bg-white px-8 py-16 text-center">
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-slate-100">
+                    <ArrowUpRight
+                        size={28}
+                        className="text-slate-400"
+                    />
+                </div>
 
-                <h3 className="text-lg font-semibold text-slate-700">
-                    No Deposits Found
+                <h3 className="mt-5 text-lg font-semibold text-slate-900">
+                    No Deposit History
                 </h3>
 
                 <p className="mt-2 text-sm text-slate-500">
-                    Your deposit history will appear here.
+                    Your deposits will appear here once you make one.
                 </p>
-
             </div>
         );
     }
 
     return (
-        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+        <div className="space-y-3">
+            {deposits.map((deposit) => {
+                const status = statusStyles(deposit.status);
 
-            <div className="overflow-x-auto">
+                return (
+                    <div
+                        key={deposit.id}
+                        className="
+                            rounded-2xl
+                            border
+                            border-slate-200
+                            bg-white
+                            p-4
+                            shadow-sm
+                            transition-all
+                            duration-200
+                            hover:border-blue-200
+                            hover:shadow-md
+                            active:scale-[0.99]
+                        "
+                    >
+                        {/* Top */}
 
-                <table className="min-w-full">
+                        <div className="flex items-start justify-between gap-3">
+                            <div className="min-w-0 flex-1">
+                                <p className="text-[11px] font-medium uppercase tracking-wide text-slate-400">
+                                    Deposit
+                                </p>
 
-                    <thead className="bg-slate-50">
-
-                        <tr>
-
-                            <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-slate-500">
-                                Reference
-                            </th>
-
-                            <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-slate-500">
-                                Amount
-                            </th>
-
-                            <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-slate-500">
-                                Bank
-                            </th>
-
-                            <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-slate-500">
-                                Date
-                            </th>
-
-                            <th className="px-6 py-4 text-left text-xs font-semibold uppercase text-slate-500">
-                                Status
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        {deposits.map((deposit) => (
-                            <tr
-                                key={deposit.id}
-                                className="border-t border-slate-100 transition hover:bg-slate-50"
-                            >
-
-                                <td className="px-6 py-5 text-sm font-medium text-slate-900">
+                                <p className="mt-1 truncate text-[15px] font-semibold text-slate-900">
                                     {deposit.reference}
-                                </td>
+                                </p>
+                            </div>
 
-                                <td className="px-6 py-5 font-semibold text-blue-600">
-                                    ₦
-                                    {Number(
-                                        deposit.amount,
-                                    ).toLocaleString()}
-                                </td>
+                            <div
+                                className={`
+                                    inline-flex
+                                    shrink-0
+                                    items-center
+                                    gap-1.5
+                                    rounded-full
+                                    px-2.5
+                                    py-1
+                                    text-[11px]
+                                    font-semibold
+                                    capitalize
+                                    ${status.badge}
+                                `}
+                            >
+                                <span
+                                    className={`h-2 w-2 rounded-full ${status.dot}`}
+                                />
 
-                                <td className="px-6 py-5 text-sm text-slate-600">
+                                {deposit.status.replace("_", " ")}
+                            </div>
+                        </div>
+
+                        {/* Amount */}
+
+                        <div className="mt-4">
+                            <h2 className="text-2xl font-bold tracking-tight text-slate-900">
+                                ₦
+                                {Number(
+                                    deposit.amount,
+                                ).toLocaleString("en-NG")}
+                            </h2>
+                        </div>
+
+                        {/* Bottom */}
+
+                        <div className="mt-4 grid grid-cols-2 gap-3 rounded-xl bg-slate-50 p-3">
+
+                            <div>
+                                <div className="mb-1 flex items-center gap-1.5 text-[11px] text-slate-500">
+                                    <Building2 size={13} />
+                                    Bank
+                                </div>
+
+                                <p className="truncate text-sm font-medium text-slate-800">
                                     {deposit.senderBankName}
-                                </td>
+                                </p>
+                            </div>
 
-                                <td className="px-6 py-5 text-sm text-slate-500">
-                                    {new Date(
-                                        deposit.createdAt,
-                                    ).toLocaleDateString()}
-                                </td>
+                            <div>
+                                <div className="mb-1 flex items-center gap-1.5 text-[11px] text-slate-500">
+                                    <CalendarDays size={13} />
+                                    Date
+                                </div>
 
-                                <td className="px-6 py-5">
+                                <p className="text-sm font-medium text-slate-800">
+                                    {format(
+                                        new Date(deposit.createdAt),
+                                        "dd MMM yyyy",
+                                    )}
+                                </p>
+                            </div>
 
-                                    <span
-                                        className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold capitalize ${statusClass(
-                                            deposit.status,
-                                        )}`}
-                                    >
-                                        {deposit.status.replace(
-                                            "_",
-                                            " ",
-                                        )}
-                                    </span>
+                            <div className="col-span-2 border-t border-slate-200 pt-3">
+                                <div className="flex items-center gap-1.5 text-[11px] text-slate-500">
+                                    <Clock3 size={13} />
+                                    Time
+                                </div>
 
-                                </td>
+                                <p className="mt-1 text-sm font-medium text-slate-800">
+                                    {format(
+                                        new Date(deposit.createdAt),
+                                        "hh:mm a",
+                                    )}
+                                </p>
+                            </div>
 
-                            </tr>
-                        ))}
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
+                        </div>
+                    </div>
+                );
+            })}
         </div>
     );
 }

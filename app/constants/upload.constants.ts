@@ -23,10 +23,10 @@ export const FILTERS: {
         label: "Pending",
         value: "pending",
     },
-    {
-        label: "Under Review",
-        value: "under_review",
-    },
+    // {
+    //     label: "Under Review",
+    //     value: "under_review",
+    // },
     {
         label: "Approved",
         value: "approved",
@@ -35,8 +35,8 @@ export const FILTERS: {
         label: "Declined",
         value: "declined",
     },
-    {
-        label: "Cancelled",
-        value: "cancelled",
-    },
+    // {
+    //     label: "Cancelled",
+    //     value: "cancelled",
+    // },
 ];

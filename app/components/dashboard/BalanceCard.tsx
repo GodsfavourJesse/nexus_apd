@@ -126,7 +126,7 @@ export default function BalanceCard() {
                 </Link>
 
                 <Link
-                    href="/dashboard/wallet/withdraw"
+                    href="/dashboard/wallet/withdrawal"
                     className="
                         flex flex-1
                         items-center

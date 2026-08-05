@@ -1,16 +1,15 @@
 "use client";
 
+import { ROUTES } from "@/app/constants/routes";
 import { useWalletStore } from "@/app/store/wallet.store";
+import Link from "next/link";
 
-interface StatsCardProps {
-    onDeposit?: () => void;
-    onWithdraw?: () => void;
-}
+// interface StatsCardProps {
+//     onDeposit?: () => void;
+//     onWithdraw?: () => void;
+// }
 
-export default function ProfileStatsCard({
-    onDeposit,
-    onWithdraw,
-}: StatsCardProps) {
+export default function ProfileStatsCard() {
     const wallet = useWalletStore(
         (state) => state.wallet
     );
@@ -65,15 +64,16 @@ export default function ProfileStatsCard({
                             Account Balance
                         </p>
 
-                        <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-900">
+                        <h2 className="mt-2 mb-3 text-2xl font-bold tracking-tight text-slate-900">
                             ₦{formatCurrency(wallet?.availableBalance)}
                         </h2>
 
-                        <button
-                            onClick={onDeposit}
+                        <Link
+                            href={ROUTES.DEPOSIT}
                             className="
                                 mt-4
                                 w-full
+                                px-8
                                 rounded-xl
                                 bg-[#4DA8FE]
                                 py-2.5
@@ -87,7 +87,7 @@ export default function ProfileStatsCard({
                             "
                         >
                             Deposit
-                        </button>
+                        </Link>
                     </div>
 
                     <div className="rounded-2xl bg-slate-50 p-4">
@@ -95,12 +95,12 @@ export default function ProfileStatsCard({
                             Total Income
                         </p>
 
-                        <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-900">
+                        <h2 className="mt-2 mb-3 text-2xl font-bold tracking-tight text-slate-900">
                             ₦{formatCurrency(wallet?.totalEarned)}
                         </h2>
 
-                        <button
-                            onClick={onWithdraw}
+                        <Link
+                            href={ROUTES.WITHDRAWAL}
                             className="
                                 mt-4
                                 w-full
@@ -108,6 +108,7 @@ export default function ProfileStatsCard({
                                 border
                                 border-slate-200
                                 bg-white
+                                px-8
                                 py-2.5
                                 text-sm
                                 font-semibold
@@ -117,7 +118,7 @@ export default function ProfileStatsCard({
                             "
                         >
                             Withdraw
-                        </button>
+                        </Link>
                     </div>
 
                 </div>

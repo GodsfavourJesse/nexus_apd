@@ -1,9 +1,9 @@
 export type DepositStatus =
     | "pending"
-    | "under_review"
+    // | "under_review"
     | "approved"
     | "declined"
-    | "cancelled";
+    // | "cancelled";
 
 export interface Deposit {
     id: string;

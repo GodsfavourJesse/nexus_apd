@@ -2,13 +2,13 @@
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-
 import TransactionHeader from "@/app/components/transactions/TransactionHeader";
 import TransactionSummaryCard from "@/app/components/transactions/TransactionSummaryCard";
 import TransactionSearch from "@/app/components/transactions/TransactionSearch";
 import TransactionList from "@/app/components/transactions/TransactionList";
 import TransactionFilter from "@/app/components/transactions/TransactionFIlter";
 import { useTransactions } from "@/app/hooks/clientHooks/transactionHooks/useTransactions";
+import { ArrowLeft } from "lucide-react";
 
 export default function TransactionsPage() {
 
@@ -38,15 +38,11 @@ export default function TransactionsPage() {
                         transaction.reference
                             .toLowerCase()
                             .includes(keyword)
-
                         ||
-
                         transaction.type
                             .toLowerCase()
                             .includes(keyword)
-
                         ||
-
                         (
                             transaction.description ?? ""
                         )
@@ -59,29 +55,23 @@ export default function TransactionsPage() {
             // Filter
             if (filter !== "All") {
                 const filterMap: Record<string, string[]> = {
-
                     Deposits: [
                         "deposit",
                     ],
-
                     Withdrawals: [
                         "withdraw",
                     ],
-
                     Rewards: [
                         "reward",
                         "bonus",
                     ],
-
                     Referral: [
                         "referral",
                     ],
-
                     Membership: [
                         "membership",
                         "upgrade",
                     ],
-
                 };
 
                 const keywords = filterMap[filter];
@@ -93,147 +83,89 @@ export default function TransactionsPage() {
                         return keywords.some(
                             keyword => type.includes(keyword),
                         );
-
                     },
                 );
-
             }
 
-
-
             // Newest First
-
             items.sort(
                 (a, b) =>
-
                     new Date(
                         b.createdAt,
                     ).getTime()
-
                     -
-
                     new Date(
                         a.createdAt,
                     ).getTime(),
             );
 
-
             return items;
-
-
         }, [
-
             transactions,
-
             search,
-
             filter,
-
         ]);
 
-
-
-    const totalCredits =
-        filteredTransactions
-
-            .filter(
-                (transaction) =>
-
-                    !transaction.type
-                        .toLowerCase()
-                        .includes("withdraw"),
+    const totalCredits = filteredTransactions
+        .filter((transaction) =>
+            !transaction.type
+                .toLowerCase()
+                .includes("withdraw"),
             )
 
-            .reduce(
-                (sum, transaction) =>
+        .reduce((sum, transaction) =>
+            sum +
+                Number(
+                    transaction.amount,
+                ),
+            0,
+        );
 
-                    sum +
-                    Number(
-                        transaction.amount,
-                    ),
+    const totalDebits = filteredTransactions
+        .filter((transaction) =>
+            transaction.type
+                .toLowerCase()
+                .includes("withdraw"),
+        )
 
-                0,
-            );
+        .reduce((sum, transaction) =>
+            sum +
+            Number(
+                transaction.amount,
+            ),
 
-
-
-    const totalDebits =
-        filteredTransactions
-
-            .filter(
-                (transaction) =>
-
-                    transaction.type
-                        .toLowerCase()
-                        .includes("withdraw"),
-            )
-
-            .reduce(
-                (sum, transaction) =>
-
-                    sum +
-                    Number(
-                        transaction.amount,
-                    ),
-
-                0,
-            );
-
-
+            0,
+        );
 
     return (
-
         <main className="min-h-screen bg-slate-50">
-
 
             <TransactionHeader />
 
-
-
             <div className="space-y-5 px-4 pb-28 pt-5">
-
-
-
                 <TransactionSummaryCard
-
                     totalTransactions={
                         filteredTransactions.length
                     }
-
                     totalCredits={
                         totalCredits
                     }
-
                     totalDebits={
                         totalDebits
                     }
-
                 />
-
-
 
                 <TransactionSearch
-
                     value={search}
-
                     onChange={setSearch}
-
                 />
-
-
 
                 <TransactionFilter
-
                     value={filter}
-
                     onChange={setFilter}
-
                 />
 
-
-
                 <TransactionList
-
                     transactions={
                         filteredTransactions
                     }
@@ -243,30 +175,21 @@ export default function TransactionsPage() {
                     }
 
                     onSelect={(transaction) =>
-
                         router.push(
                             `/dashboard/transactions/${transaction.id}`,
                         )
-
                     }
-
                 />
-
-
 
                 {
                     hasNextPage && (
-
                         <button
-
                             onClick={() =>
                                 fetchNextPage()
                             }
-
                             disabled={
                                 isFetchingNextPage
                             }
-
                             className="
                                 mx-auto
                                 block
@@ -282,29 +205,16 @@ export default function TransactionsPage() {
                                 disabled:cursor-not-allowed
                                 disabled:opacity-50
                             "
-
                         >
-
                             {
                                 isFetchingNextPage
-
                                     ? "Loading..."
-
                                     : "Load More Transactions"
                             }
-
                         </button>
-
                     )
                 }
-
-
-
             </div>
-
-
         </main>
-
     );
-
 }

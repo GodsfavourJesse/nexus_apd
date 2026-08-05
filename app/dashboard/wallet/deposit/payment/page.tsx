@@ -13,6 +13,7 @@ import PendingDepositDialog from "@/app/components/deposit/PendingDepositDialog"
 import { useCreateDeposit } from "@/app/hooks/clientHooks/depositHooks/useCreateDeposit";
 import { usePendingDeposit } from "@/app/hooks/clientHooks/depositHooks/usePendingDeposit";
 import { useUploadReceipt } from "@/app/hooks/clientHooks/uploadHooks/useUploadReceipt";
+import DepositSuccessModal from "@/app/components/deposit/DepositSuccessModal";
 
 const MIN_AMOUNT = 1_000;
 const MAX_AMOUNT = 1_000_000;
@@ -27,6 +28,8 @@ export default function DepositPaymentPage() {
     );
 
     const [receipt, setReceipt] = useState<File | null>(null);
+
+    const [successDeposit, setSuccessDeposit] = useState<any>(null);
 
     const {
         data: pendingDeposit,
@@ -85,42 +88,31 @@ export default function DepositPaymentPage() {
         }
 
         try {
-    // Upload receipt first
-    const receiptUrl =
-        await uploadReceipt.mutateAsync(receipt);
+            const receiptUrl = await uploadReceipt.mutateAsync(
+                receipt,
+            );
 
-    console.log("Cloudinary URL:", receiptUrl);
+            const deposit = await createDeposit.mutateAsync({
+                amount,
+                senderAccountName: data.senderAccountName,
+                senderAccountNumber: data.senderAccountNumber,
+                senderBankName: data.senderBankName,
+                paymentReceipt: receiptUrl,
+            });
 
-    // Then create the deposit
-    const deposit =
-        await createDeposit.mutateAsync({
-            amount,
-            senderAccountName:
-                data.senderAccountName,
-            senderAccountNumber:
-                data.senderAccountNumber,
-            senderBankName:
-                data.senderBankName,
-            paymentReceipt: receiptUrl,
-        });
+            toast.success(
+                "Deposit submitted successfully.",
+            );
 
-    console.log("Deposit created:", deposit);
+            setSuccessDeposit(deposit);
+        } catch (error: any) {
+            console.error(error);
 
-    toast.success(
-        "Deposit request submitted successfully.",
-    );
-
-    router.replace(
-        `/dashboard/wallet/deposit/success?reference=${deposit.reference}`,
-    );
-} catch (error: any) {
-    console.error("Deposit Error:", error);
-
-    toast.error(
-        error?.message ??
-        "Unable to submit your deposit. Please try again.",
-    );
-}
+            toast.error(
+                error?.message ??
+                "Unable to submit your deposit.",
+            );
+        }
     }
 
     /**
@@ -176,6 +168,14 @@ export default function DepositPaymentPage() {
             />
 
             <PaymentInstructions />
+
+            <DepositSuccessModal
+                open={!!successDeposit}
+                deposit={successDeposit}
+                onClose={() => {
+                    setSuccessDeposit(null);
+                }}
+            />
         </div>
     );
 }

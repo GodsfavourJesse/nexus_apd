@@ -7,6 +7,10 @@ export const ROUTES = {
 
     MESSAGES: "/messages",
 
+    DEPOSIT: "/dashboard/wallet/deposit",
+
+    WITHDRAWAL: "/dashboard/wallet/withdrawal",
+
     // REFERRALS: "/referrals",
 
     WALLET: "/dashboard/wallet",

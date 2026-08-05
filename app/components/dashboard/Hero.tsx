@@ -55,7 +55,7 @@ export default function Hero({ name = "Internship Member" }: HeroProps) {
                     </h1>
 
                     <p className="mt-4 text-[20px] font-medium text-white/90">
-                        Welcome to <span className="font-bold">WICCO</span>,
+                        Welcome to <span className="font-bold">WIICO</span>,
                         Start your work journey!
                     </p>
                 </div>

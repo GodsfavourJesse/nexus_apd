@@ -35,7 +35,7 @@ export default function WalletQuickActions() {
             title: "Withdraw",
             description: "Transfer your funds",
             icon: ArrowUpRight,
-            href: "/dashboard/withdrawals",
+            href: "/dashboard/wallet/withdrawal",
             bg: "bg-emerald-50",
             iconBg: "bg-emerald-100",
             iconColor: "text-emerald-600",
