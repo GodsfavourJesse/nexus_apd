@@ -1,4 +1,6 @@
+import Link from "next/link";
 import NairaBadge from "./NairaBadge";
+import { ROUTES } from "@/app/constants/routes";
 
 export default function PositionsBanner() {
     return (
@@ -11,12 +13,12 @@ export default function PositionsBanner() {
                 </p>
             </div>
 
-            <button
-                type="button"
+            <Link
+                href={ROUTES.MEMBERS}
                 className="rounded-full bg-[#22AFFF] px-8 py-2.5 text-sm font-semibold text-white transition hover:bg-[#0A72F3]"
             >
                 Go
-            </button>
+            </Link>
         </div>
     );
 }

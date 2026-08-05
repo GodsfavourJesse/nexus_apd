@@ -41,7 +41,7 @@ export default function AboutCompany() {
                         </h2>
 
                         <p className="text-xs text-slate-500">
-                            Learn more about PXES
+                            Learn more about WIICO
                         </p>
                     </div>
                 </div>

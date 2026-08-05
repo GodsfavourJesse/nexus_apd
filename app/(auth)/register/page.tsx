@@ -56,7 +56,7 @@ export default function RegisterPage() {
 
                     <div className="px-6">
                         <h2 className="text-3xl font-medium text-black/70 tracking-tight">
-                            PXES
+                            WIICO
                         </h2>
                         <p className="mt-4 mb-4 text-[16px] leading-relaxed text-black/70">
                             Provide your information to register your account

@@ -1,6 +1,6 @@
 "use client";
 
-import { Settings, Pencil } from "lucide-react";
+import { Settings, Pencil, Wallet } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -20,16 +20,30 @@ export default function ProfileHeader({
 
     return (
         <div className="px-6 pb-10 pt-6 mb-2">
-            <Link
-                href="/dashboard/settings"
-                aria-label="Settings"
-                className="w-fit text-white/90 transition hover:text-white cursor-pointer"
-            >
-                <Settings
-                    size={26}
-                    strokeWidth={1.75}
-                />
-            </Link>
+
+            <div className="flex items-center justify-between">
+                <Link
+                    href="/dashboard/settings"
+                    aria-label="Settings"
+                    className="w-fit text-white/90 transition hover:text-white cursor-pointer"
+                >
+                    <Settings
+                        size={26}
+                        strokeWidth={1.75}
+                    />
+                </Link>
+                <Link
+                    href="/dashboard/wallet"
+                    aria-label="Settings"
+                    className="w-fit text-white/90 transition hover:text-white cursor-pointer"
+                >
+                    <Wallet
+                        size={26}
+                        strokeWidth={1}
+                    />
+                </Link>
+
+            </div>
             <div className="mt-8 flex items-center gap-4">
                 <div className="relative h-16 w-16 shrink-0">
                     <div className="h-full w-full overflow-hidden rounded-full border-2 border-white/60 bg-white">
