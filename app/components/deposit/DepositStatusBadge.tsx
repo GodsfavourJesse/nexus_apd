@@ -21,12 +21,12 @@ const statusMap: Record<
             "border-yellow-200 bg-yellow-50 text-yellow-700",
     },
 
-    under_review: {
-        label: "Under Review",
-        dot: "🟠",
-        color:
-            "border-orange-200 bg-orange-50 text-orange-700",
-    },
+    // under_review: {
+    //     label: "Under Review",
+    //     dot: "🟠",
+    //     color:
+    //         "border-orange-200 bg-orange-50 text-orange-700",
+    // },
 
     approved: {
         label: "Approved",
@@ -42,12 +42,12 @@ const statusMap: Record<
             "border-red-200 bg-red-50 text-red-700",
     },
 
-    cancelled: {
-        label: "Cancelled",
-        dot: "⚪",
-        color:
-            "border-slate-200 bg-slate-100 text-slate-600",
-    },
+    // cancelled: {
+    //     label: "Cancelled",
+    //     dot: "⚪",
+    //     color:
+    //         "border-slate-200 bg-slate-100 text-slate-600",
+    // },
 };
 
 export default function DepositStatusBadge({
