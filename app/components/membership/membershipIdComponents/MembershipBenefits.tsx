@@ -77,9 +77,8 @@ export default function MembershipBenefits({
 
             <TierQuotaTable
                 tasksPerDay={tier.tasksPerDay}
-                dailyRewardLimit={Number(
-                    tier.dailyRewardLimit,
-                )}
+                rewardPerTask={tier.rewardPerTask}
+                dailyRewardLimit={tier.dailyRewardLimit}
             />
 
             <TierInvitationTable
