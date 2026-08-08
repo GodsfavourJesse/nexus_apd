@@ -106,7 +106,7 @@ export default function WalletStatsGrid({
                                 `}
                             >
                                 <Icon
-                                    size={22}
+                                    size={20}
                                     className={item.iconColor}
                                 />
                             </div>
@@ -128,8 +128,8 @@ export default function WalletStatsGrid({
 
                         <h3
                             className="
-                                mt-2
-                                text-lg
+                                mt-2 text-[16px]
+                                md:text-lg
                                 font-bold
                                 leading-tight
                                 text-slate-900
@@ -140,8 +140,8 @@ export default function WalletStatsGrid({
 
                         <p
                             className="
-                                mt-2
-                                text-xs
+                                mt-2 text-[12px]
+                                md:text-xs
                                 leading-5
                                 text-slate-500
                             "

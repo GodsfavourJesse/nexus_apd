@@ -27,7 +27,8 @@ export const registerSchema = z
         referral: z
             .string()
             .trim()
-            .min(4, "Referral is required."),
+            .optional()
+            .or(z.literal("")),
 
         password: z
             .string()

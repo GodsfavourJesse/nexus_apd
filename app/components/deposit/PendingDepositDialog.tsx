@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { AlertTriangle, ChevronLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { ROUTES } from "@/app/constants/routes";
 
 interface Props {
     open: boolean;
@@ -16,16 +18,19 @@ export default function PendingDepositDialog({
 }: Props) {
     if (!open) return null;
 
+    const router = useRouter();
+
     return (
         <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/60 p-4">
             
             <div className="w-full max-w-lg rounded-3xl bg-white p-8 shadow-xl">
 
-                <Link
-                    href="/dashboard/wallet"
+                <button
+                    // href="/dashboard/wallet"
+                    // onClick={router.back("/")}
                 >
                     <ChevronLeft />
-                </Link>
+                </button>
 
                 <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-amber-100">
                     <AlertTriangle className="text-amber-600" size={34} />
@@ -72,7 +77,7 @@ export default function PendingDepositDialog({
                 </div>
 
                 <Link
-                    href="/dashboard/wallet/deposits"
+                    href={ROUTES.DEPOSIT_HISTORY}
                     className="mt-8 block rounded-xl bg-blue-600 py-3 text-center font-semibold text-white hover:bg-blue-700"
                 >
                     View Deposit

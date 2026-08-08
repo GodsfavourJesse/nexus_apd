@@ -1,136 +1,260 @@
+import { CheckCircle2, Lock } from "lucide-react";
+
 import TierQuotaTable from "./TierQuotaTable";
 import TierInvitationTable from "./TierInvitationTable";
 import TierOrderCommissionTable from "./TierOrderCommissionTable";
-import { Lock, CheckCircle2 } from "lucide-react";
 
-import { MembershipTier } from "@/app/types/clientTypes/memebership.types";
+import { MembershipTier } from "@/app/types/clientTypes/membership.types";
 
 interface MembershipTierSlideProps {
     tier: MembershipTier;
-    onJoin?: (tierId: string) => void;
+    isCurrent?: boolean;
+    onJoin?: (slug: string) => void;
 }
 
 export default function MembershipTierSlide({
     tier,
+    isCurrent = false,
     onJoin,
 }: MembershipTierSlideProps) {
+    const price = Number(tier.upgradePrice);
+
+    const safePrice = Number.isFinite(price)
+        ? price
+        : 0;
+
     return (
         <div
             className="
-                rounded-[30px]
-                border border-slate-200/70
-                bg-white/90
-                p-6
-                shadow-[0_18px_40px_-20px_rgba(15,23,42,0.25)]
-                backdrop-blur-xl
+                overflow-hidden
+                rounded-3xl
+                border
+                border-slate-200
+                bg-white
+                p-5
+                shadow-xl
+                shadow-slate-200/50
+                md:p-7
             "
         >
-            {/* Header */}
+            {/* =====================================================
+                HEADER
+            ===================================================== */}
             <div className="flex items-start justify-between gap-4">
-                <div>
+                {/* Membership Information */}
+                <div className="min-w-0">
+                    {/* Membership Status */}
                     <span
                         className={`
-                            inline-flex items-center gap-2 rounded-full
-                            px-3 py-1 text-[10px] md:text-xs font-semibold
+                            inline-flex
+                            items-center
+                            gap-2
+                            rounded-full
+                            px-3
+                            py-1
+                            text-[10px]
+                            font-semibold
+                            md:text-xs
                             ${
-                                tier.isCurrent
+                                isCurrent
                                     ? "bg-blue-100 text-blue-700"
                                     : "bg-slate-100 text-slate-600"
                             }
                         `}
                     >
-                        {tier.isCurrent ? (
-                            <div className="text-[10px] flex gap-1">
-                                <CheckCircle2 size={14} />
+                        {isCurrent ? (
+                            <>
+                                <CheckCircle2
+                                    size={12}
+                                    strokeWidth={2.5}
+                                />
+
                                 Current Membership
-                            </div>
+                            </>
                         ) : (
                             <>
-                                <Lock size={14} />
+                                <Lock
+                                    size={12}
+                                    strokeWidth={2.5}
+                                />
+
                                 Locked
                             </>
                         )}
                     </span>
 
-                    <h2 className="mt-1 md:mt-4 text-[16px] md:text-2xl font-bold text-slate-900">
+                    {/* Membership Name */}
+                    <h2
+                        className="
+                            mt-2
+                            truncate
+                            text-[16px]
+                            font-bold
+                            text-slate-900
+                            md:mt-4
+                            md:text-2xl
+                        "
+                    >
                         {tier.name}
                     </h2>
                 </div>
 
-                {!tier.isCurrent && tier.price !== undefined && (
-                    <div className="text-right">
-                        <p className="text-[10px] md:text-xs text-slate-500">
+                {/* =================================================
+                    MEMBERSHIP FEE
+                ================================================= */}
+                {!isCurrent && (
+                    <div className="shrink-0 text-right">
+                        <p
+                            className="
+                                text-[10px]
+                                text-slate-500
+                                md:text-xs
+                            "
+                        >
                             Membership Fee
                         </p>
 
-                        <p className="mt-1 text-[14px] md:text-2xl font-bold text-[#2B84E0]">
-                            {tier.currency ?? "NGN"}
-                            <span className="ml-1 md:ml-0">
-                                {tier.price.toLocaleString()}
-                            </span>
+                        <p
+                            className="
+                                mt-1
+                                text-[14px]
+                                font-bold
+                                text-[#2B84E0]
+                                md:text-2xl
+                            "
+                        >
+                            ₦
+                            {safePrice.toLocaleString(
+                                "en-NG",
+                                {
+                                    minimumFractionDigits: 0,
+                                    maximumFractionDigits: 2,
+                                },
+                            )}
                         </p>
                     </div>
                 )}
             </div>
 
-            {/* Description */}
-            <div className="mt-6 rounded-2xl bg-blue-50 p-4">
-                {tier.isCurrent && (
-                    <p className="mb-2 text-sm font-semibold text-[#2B84E0]">
+            {/* =====================================================
+                DESCRIPTION
+            ===================================================== */}
+            <div
+                className="
+                    mt-6
+                    rounded-2xl
+                    bg-blue-50
+                    p-4
+                    md:p-5
+                "
+            >
+                {isCurrent && (
+                    <div
+                        className="
+                            mb-2
+                            flex
+                            items-center
+                            gap-2
+                            text-sm
+                            font-semibold
+                            text-[#2B84E0]
+                        "
+                    >
+                        <CheckCircle2
+                            size={16}
+                            strokeWidth={2.5}
+                        />
+
                         Basic Rights & Benefits
-                    </p>
+                    </div>
                 )}
 
-                <p className="text-sm leading-7 text-slate-700">
-                    {tier.description}
+                <p
+                    className="
+                        text-sm
+                        leading-7
+                        text-slate-700
+                    "
+                >
+                    {tier.description ||
+                        "Enjoy the benefits and earning opportunities available with this membership plan."}
                 </p>
             </div>
 
-            {/* Join Button */}
-            {!tier.isCurrent && (
+            {/* =====================================================
+                UPGRADE BUTTON
+            ===================================================== */}
+            {!isCurrent && (
                 <button
                     type="button"
-                    onClick={() => onJoin?.(tier.id)}
-                    className="
+                    onClick={() => onJoin?.(tier.slug)}
+                    disabled={!tier.canUpgradeTo}
+                    className={`
                         mt-6
                         w-full
                         rounded-2xl
-                        bg-gradient-to-r
-                        from-[#57B4FF]
-                        via-[#349FFF]
-                        to-[#197FEF]
                         py-3.5
                         text-sm
                         font-semibold
                         text-white
-                        shadow-lg
-                        shadow-blue-300/30
                         transition-all
                         duration-300
-                        hover:-translate-y-0.5
-                        hover:shadow-xl
-                        active:scale-[0.98]
-                    "
+                        ${
+                            tier.canUpgradeTo
+                                ? `
+                                    bg-gradient-to-r
+                                    from-[#57B4FF]
+                                    via-[#349FFF]
+                                    to-[#197FEF]
+                                    shadow-lg
+                                    shadow-blue-300/30
+                                    hover:-translate-y-0.5
+                                    hover:shadow-xl
+                                    active:scale-[0.98]
+                                `
+                                : `
+                                    cursor-not-allowed
+                                    bg-slate-300
+                                `
+                        }
+                    `}
                 >
-                    Upgrade Membership
+                    {tier.canUpgradeTo
+                        ? "Upgrade Membership"
+                        : "Upgrade Unavailable"}
                 </button>
             )}
 
-            {/* Tables */}
+            {/* =====================================================
+                MEMBERSHIP DETAILS
+            ===================================================== */}
             <div className="mt-7 space-y-6">
-                <TierQuotaTable quota={tier.orderQuota} />
+                {/* =================================================
+                    DAILY QUOTA
+                ================================================= */}
+                <TierQuotaTable
+                    tasksPerDay={tier.tasksPerDay}
+                    rewardPerTask={tier.rewardPerTask}
+                    dailyRewardLimit={tier.dailyRewardLimit}
+                />
 
-                {tier.invitationCommissions && (
-                    <TierInvitationTable
-                        rows={tier.invitationCommissions}
-                    />
-                )}
+                {/* =================================================
+                    INVITATION COMMISSIONS
+                ================================================= */}
+                <TierInvitationTable
+                    level1={tier.invitationCommissionLevel1}
+                    level2={tier.invitationCommissionLevel2}
+                    level3={tier.invitationCommissionLevel3}
+                />
 
-                {tier.orderCommissions && (
-                    <TierOrderCommissionTable
-                        rows={tier.orderCommissions}
-                    />
-                )}
+                {/* =================================================
+                    ORDER COMMISSIONS
+                ================================================= */}
+                <TierOrderCommissionTable
+                    level1={tier.orderCommissionLevel1}
+                    level2={tier.orderCommissionLevel2}
+                    level3={tier.orderCommissionLevel3}
+                />
             </div>
         </div>
     );

@@ -8,7 +8,9 @@ import {
     Compass,
     ChevronRight,
     Wallet,
+    History,
 } from "lucide-react";
+import { ROUTES } from "@/app/constants/routes";
 
 interface SettingsItem {
     icon: LucideIcon;
@@ -20,7 +22,12 @@ const ITEMS: SettingsItem[] = [
     {
         icon: Wallet,
         label: "Transaction history",
-        href: "/dashboard/transactions",
+        href: ROUTES.TRANSACTIONS,
+    },
+    {
+        icon: History,
+        label: "Upgrade history",
+        href: ROUTES.UPGRADE_HISTORY,
     },
     {
         icon: Award,

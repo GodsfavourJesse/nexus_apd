@@ -9,6 +9,8 @@ export const ROUTES = {
 
     DEPOSIT: "/dashboard/wallet/deposit",
 
+    DEPOSIT_HISTORY: "/dashboard/wallet/deposit/history",
+
     WITHDRAWAL: "/dashboard/wallet/withdrawal",
 
     // REFERRALS: "/referrals",
@@ -20,6 +22,8 @@ export const ROUTES = {
     PROFILE: "/dashboard/profile",
     
     MEMBERS: "/dashboard/membership",
+
+    UPGRADE_HISTORY: "/dashboard/upgrade-history",
 
     ABOUT: "/dashboard/about",
 

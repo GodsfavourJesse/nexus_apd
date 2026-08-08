@@ -36,7 +36,7 @@ export interface RegisterRequest {
     phone: string;
     password: string;
     confirmPassword: string;
-    referral: string;
+    referral?: string;
     country?: string;
 }
 

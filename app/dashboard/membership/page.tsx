@@ -1,15 +1,23 @@
 "use client";
 
-import MembershipTierSlider from "@/app/components/membership/MembershipTierSlider";
-import { TIERS } from "@/app/constants/tier.constants";
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 
+import MembershipTierSlider from "@/app/components/membership/MembershipTierSlider";
 
+import { ROUTES } from "@/app/constants/routes";
+import { useMemberships } from "@/app/hooks/clientHooks/membershipHooks/useMemberships";
 
 export default function MembershipPage() {
-
     const router = useRouter();
+
+    const {
+        data: tiers = [],
+        isLoading,
+        isError,
+    } = useMemberships();
+
+    // console.log(tiers);
 
     return (
         <main className=" bg-slate-50 overflow-x-hidden">
@@ -179,9 +187,13 @@ export default function MembershipPage() {
             {/* Slider */}
             <section className="-mt-16 px-4 pb-10">
                 <MembershipTierSlider
-                    tiers={TIERS}
-                    // onJoin={(tierId) => console.log(tierId)}
-                />
+                        tiers={tiers}
+                        onJoin={(slug) =>
+                            router.push(
+                                `${ROUTES.MEMBERS}/${slug}`
+                            )
+                        }
+                    />
             </section>
         </main>
     );

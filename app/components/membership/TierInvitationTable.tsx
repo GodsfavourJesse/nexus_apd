@@ -1,16 +1,40 @@
 import {
-    UserPlus,
     Percent,
-    Wallet,
+    UserPlus,
 } from "lucide-react";
 
-import { InvitationCommission } from "@/app/types/clientTypes/memebership.types";
+interface TierInvitationTableProps {
+    level1: number | string;
+    level2: number | string;
+    level3: number | string;
+}
+
+const rows = [
+    {
+        label: "Level 1 Membership Upgrade",
+        key: "level1",
+    },
+    {
+        label: "Level 2 Membership Upgrade",
+        key: "level2",
+    },
+    {
+        label: "Level 3 Membership Upgrade",
+        key: "level3",
+    },
+] as const;
 
 export default function TierInvitationTable({
-    rows,
-}: {
-    rows: InvitationCommission[];
-}) {
+    level1,
+    level2,
+    level3,
+}: TierInvitationTableProps) {
+    const values = {
+        level1,
+        level2,
+        level3,
+    };
+
     return (
         <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
             {/* Header */}
@@ -25,12 +49,12 @@ export default function TierInvitationTable({
                 "
             >
                 <h3 className="text-sm font-semibold text-[#2B84E0]">
-                    Referral Commission
+                    Upgrade Referral Commission
                 </h3>
 
                 <p className="mt-1 text-xs text-slate-500">
-                    Earn referral bonuses whenever members you invite upgrade
-                    their membership.
+                    Earn commission whenever someone in your referral network
+                    upgrades their membership.
                 </p>
             </div>
 
@@ -38,7 +62,7 @@ export default function TierInvitationTable({
             <div
                 className="
                     grid
-                    grid-cols-[2fr_1fr_1fr]
+                    grid-cols-[2fr_1fr]
                     items-center
                     border-y
                     border-slate-100
@@ -54,43 +78,38 @@ export default function TierInvitationTable({
             >
                 <span className="flex items-center gap-2">
                     <UserPlus size={14} />
-                    Referral
-                </span>
-
-                <span className="flex items-center justify-center gap-2">
-                    <Percent size={14} />
-                    Rate
+                    Referral Level
                 </span>
 
                 <span className="flex items-center justify-end gap-2">
-                    <Wallet size={14} />
-                    Income
+                    <Percent size={14} />
+                    Commission
                 </span>
             </div>
 
             {/* Rows */}
             <div className="divide-y divide-slate-100">
-                {rows.map((row, index) => (
+                {rows.map((row) => (
                     <div
-                        key={index}
+                        key={row.key}
                         className="
                             grid
-                            grid-cols-[2fr_1fr_1fr]
+                            grid-cols-[2fr_1fr]
                             items-center
-                            gap-3
                             px-5
                             py-4
                             transition-colors
                             hover:bg-blue-50/40
                         "
                     >
-                        <p className="text-[14px] md:text-sm leading-6 text-slate-700">
-                            {row.method}
+                        <p className="text-sm text-slate-700">
+                            {row.label}
                         </p>
 
-                        <div className="flex justify-center">
+                        <div className="text-right">
                             <span
                                 className="
+                                    inline-flex
                                     rounded-full
                                     bg-blue-50
                                     px-3
@@ -100,14 +119,8 @@ export default function TierInvitationTable({
                                     text-[#2B84E0]
                                 "
                             >
-                                {row.rate}
+                                {values[row.key]}%
                             </span>
-                        </div>
-
-                        <div className="text-right">
-                            <p className="text-[16px] font-semibold text-[#2B84E0]">
-                                ₦{row.incomeAmount.toLocaleString()}
-                            </p>
                         </div>
                     </div>
                 ))}

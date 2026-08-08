@@ -64,7 +64,7 @@ export default function ProfileStatsCard() {
                             Account Balance
                         </p>
 
-                        <h2 className="mt-2 mb-3 text-2xl font-bold tracking-tight text-slate-900">
+                        <h2 className="mt-2 mb-3 text-[16px] md:text-2xl font-bold tracking-tight text-slate-900">
                             ₦{formatCurrency(wallet?.availableBalance)}
                         </h2>
 
@@ -95,7 +95,7 @@ export default function ProfileStatsCard() {
                             Total Income
                         </p>
 
-                        <h2 className="mt-2 mb-3 text-2xl font-bold tracking-tight text-slate-900">
+                        <h2 className="mt-2 mb-3 text-[16px] md:text-2xl font-bold tracking-tight text-slate-900">
                             ₦{formatCurrency(wallet?.totalEarned)}
                         </h2>
 
@@ -197,8 +197,8 @@ function MiniStat({
 
             <p
                 className="
-                    mt-1.5
-                    text-[15px]
+                    mt-1.5 text-[12px]
+                    md:text-[15px]
                     font-semibold
                     text-slate-900
                 "

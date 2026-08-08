@@ -90,9 +90,7 @@ export default function WalletBalanceCard({
                                 backdrop-blur
                             "
                         >
-
                             <Wallet size={24} />
-
                         </div>
 
                         <div>
@@ -109,12 +107,10 @@ export default function WalletBalanceCard({
                                     gap-2
                                 "
                             >
-
                                 <ShieldCheck
                                     size={15}
                                     className="text-emerald-300"
                                 />
-
                                 <span
                                     className="
                                         text-xs
@@ -124,11 +120,8 @@ export default function WalletBalanceCard({
                                 >
                                     Wallet Active
                                 </span>
-
                             </div>
-
                         </div>
-
                     </div>
 
                     <button
@@ -146,37 +139,31 @@ export default function WalletBalanceCard({
                             active:scale-95
                         "
                     >
-
                         <Eye size={20} />
-
                     </button>
 
                 </div>
 
                 {/* Balance */}
-
                 <div className="relative mt-8">
-
                     <p
                         className="
-                            text-4xl
+                            text-3xl
                             font-bold
                             tracking-tight
                         "
                     >
                         {money(availableBalance)}
                     </p>
-
                     <p
                         className="
-                            mt-2
-                            text-sm
+                            mt-2 text-[12px]
+                            md:text-sm
                             text-sky-100
                         "
                     >
                         Funds available for spending and withdrawals
                     </p>
-
                 </div>
 
                 {/* Bottom */}
@@ -212,7 +199,7 @@ export default function WalletBalanceCard({
                             <p
                                 className="
                                     mt-1
-                                    text-lg
+                                    text-[16px]
                                     font-semibold
                                 "
                             >
@@ -245,7 +232,7 @@ export default function WalletBalanceCard({
                             <p
                                 className="
                                     mt-1
-                                    text-lg
+                                    text-[16px]
                                     font-semibold
                                 "
                             >

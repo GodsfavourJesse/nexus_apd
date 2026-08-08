@@ -24,7 +24,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-    title: "Nexus APD",
+    title: "WIICO",
     description: "Advertising Platform Dashboard",
 };
 

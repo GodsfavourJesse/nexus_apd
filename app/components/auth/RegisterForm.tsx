@@ -170,7 +170,7 @@ export default function RegisterForm() {
             />
 
             <TextField
-                label="Invitation"
+                label="Invitation (Optional)"
                 placeholder="Example: NX-4K8P2A"
                 icon={
                     <Gift className="h-4 w-4" />

@@ -1,43 +1,59 @@
 import { Star } from "lucide-react";
 
 interface TierBadgeProps {
-    tier: number;
+    name: string;
+    internship: boolean;
 }
 
-const TIER_CONFIG = {
+interface TierBadgeConfig {
+    from: string;
+    to: string;
+    label: string;
+}
+
+const TIER_BADGE_CONFIG: Record<number, TierBadgeConfig> = {
     0: {
+        from: "#A7D9FF",
+        to: "#4DA8FE",
         label: "INTERN",
-        from: "#DDF1FF",
-        to: "#55AEFF",
     },
+
     1: {
-        label: "I",
-        from: "#CFE7FF",
-        to: "#3A9BFF",
+        from: "#57B4FF",
+        to: "#197FEF",
+        label: "1",
     },
+
     2: {
-        label: "II",
-        from: "#BCDFFF",
-        to: "#2B84E0",
+        from: "#57B4FF",
+        to: "#197FEF",
+        label: "2",
     },
+
     3: {
-        label: "III",
-        from: "#9FD0FF",
-        to: "#176FD4",
+        from: "#57B4FF",
+        to: "#197FEF",
+        label: "3",
     },
+
     4: {
-        label: "IV",
-        from: "#84C2FF",
-        to: "#0A57B8",
+        from: "#57B4FF",
+        to: "#197FEF",
+        label: "4",
     },
-} as const;
+};
 
 export default function TierBadge({
-    tier,
+    name,
+    internship,
 }: TierBadgeProps) {
+    const tier = internship
+        ? 0
+        : Number(name.match(/\d+/)?.[0] ?? 0);
+
     const config =
-        TIER_CONFIG[tier as keyof typeof TIER_CONFIG] ??
-        TIER_CONFIG[0];
+        TIER_BADGE_CONFIG[tier] ??
+        TIER_BADGE_CONFIG[0];
 
     return (
         <div
@@ -59,8 +75,9 @@ export default function TierBadge({
                     absolute
                     inset-3
                     rounded-full
-                    bg-blue-400/25
+                    bg-blue-400
                     blur-xl
+                    opacity-40
                 "
             />
 
